@@ -1,0 +1,27 @@
+[
+    {
+        "text": "I was wondering if you would like to learn to play chess with me",
+        "sender": 1,
+        "recipient": 3
+    },
+    {
+        "text": "That sounds like fun",
+        "sender": 3,
+        "recipient": 1
+    },
+    {
+        "text": "can you help me learn to speak french?",
+        "sender": 1,
+        "recipient": 2
+    },
+    {
+        "text": "no",
+        "sender": 2,
+        "recipient": 1
+    },
+    {
+        "text": "Hi, I notice you are an expert angler, can you help me learn to fish?",
+        "sender": 4,
+        "recipient": 5
+    }
+]
