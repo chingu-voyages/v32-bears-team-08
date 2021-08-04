@@ -3,8 +3,9 @@ exports.up = function (knex) {
         table.increments("id").primary();
         table.string("name").unique();
         table.string("email").unique();
-        table.string("password")
+        table.string("password");
         table.text("bio");
+        table.text("goal");
         table.boolean("active").default(true);
         table.timestamps(true, true);
     });

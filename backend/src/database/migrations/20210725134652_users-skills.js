@@ -13,8 +13,6 @@ exports.up = function (knex) {
             .references("id")
             .inTable("skills")
             .onDelete("cascade");
-        table.string("proficiency");
-        table.integer("streak");
         table.timestamps(true, true);
     });
 };
