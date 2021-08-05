@@ -1,5 +1,7 @@
-const path = require("path")
-require("dotenv").config({ path: path.join(__dirname, "..", "..", "..", ".env") });
+const path = require("path");
+require("dotenv").config({
+    path: path.join(__dirname, "..", "..", "..", ".env"),
+});
 const service = require("./registration.service");
 const asyncErrorBoundary = require("../../errors/asyncErrorBoundary");
 const bcrypt = require("bcryptjs");
@@ -7,7 +9,7 @@ const jwt = require("jsonwebtoken");
 const xss = require("xss");
 
 async function create(req, res, next) {
-    const hashedPassword = hashPassword(req.body.data.password);
+    const hashedPassword = await hashPassword(req.body.data.password);
     const userWithHashedPassword = {
         name: req.body.data.name,
         email: req.body.data.email,
@@ -19,7 +21,7 @@ async function create(req, res, next) {
             id: response[0].id,
             name: response[0].name,
             email: response[0].email,
-            authToken: createJWT(response[0].email, {id: response[0].id} ),
+            authToken: createJWT(response[0].email, { id: response[0].id }),
         });
     }
     next({
@@ -36,7 +38,7 @@ async function findDuplicateEmail(req, res, next) {
             message: "this email address is already in use by another account",
         });
     }
-    next()
+    next();
 }
 
 function hasData(req, res, next) {
@@ -80,7 +82,9 @@ function hasPassword(req, res, next) {
 }
 
 function validatePassword(req, res, next) {
+    const valregex = /(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&])[\S]+/;
     const password = req.body.data.password;
+    console.log(password.length)
     if (password.length < 8) {
         next({
             status: 400,
@@ -93,11 +97,7 @@ function validatePassword(req, res, next) {
             message: "password cannot begin or end with space",
         });
     }
-    if (
-        !/(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&])[\S]+/.test(
-            password
-        )
-    ) {
+    if (!valregex.test(password)) {
         next({
             status: 400,
             message:
@@ -109,6 +109,7 @@ function validatePassword(req, res, next) {
 
 async function hashPassword(password) {
     const hashedPassword = await bcrypt.hash(password, 12);
+    console.log(hashedPassword)
     if (hashedPassword) {
         return hashedPassword;
     }
@@ -119,13 +120,13 @@ async function hashPassword(password) {
 }
 
 async function createJWT(subject, payload) {
-    const token = await jwt.sign(payload, process.env.JWT_SECRET, {
+    const token = jwt.sign(payload, process.env.JWT_SECRET, {
         subject,
         expiresIn: process.env.JWT_EXPIRY,
         algorithm: "HS256",
     });
     if (token) {
-        console.log(token)
+        console.log(token);
         return token;
     }
     next({

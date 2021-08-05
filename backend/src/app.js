@@ -9,7 +9,7 @@ const errorHandler = require("./errors/errorHandler");
 const notFound = require("./errors/notFound");
 
 const registrationRouter = require("./routes/registration/registration.router")
-//const loginRouter = require("./routes/login/login.router")
+const loginRouter = require("./routes/login/login.router")
 const usersRouter = require("./routes/users/users.router")
 const skillsRouter = require("./routes/skills/skills.router")
 const languagesRouter = require("./routes/languages/languages.router")
@@ -29,7 +29,7 @@ app.use(express.json());
 
 app.options("*", cors());
 app.use("/registration", registrationRouter)
-//app.use("/login", loginRouter)
+app.use("/login", loginRouter)
 app.use("/users", usersRouter)
 app.use("/skills", skillsRouter)
 app.use("/languages", languagesRouter)
