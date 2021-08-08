@@ -25,7 +25,7 @@ function reducer(state, action) {
 		case "SET_AUTH":
 			return{
 				...state,
-					token: action.payload
+					auth: action.payload
 				
 			}
 		default:
