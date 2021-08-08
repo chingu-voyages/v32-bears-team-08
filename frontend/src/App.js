@@ -35,8 +35,6 @@ function reducer(state, action) {
 
 function App() {
 	const [state, dispatch] = useReducer(reducer, initialState);
-	const [register, setRegister] = useState(false);
-
 
 
 	return (
@@ -62,7 +60,7 @@ function App() {
 				<Link
 					to = {location=>({...location, pathname: '/register'})}
 				>{`${
-					register ? "Click here to login" : "Not registered? Click here"
+				 "Not registered? Click here"
 				}`}</Link>
 			</div>
 			<Route path = "/dashboard" component = {Dashboard}></Route>
