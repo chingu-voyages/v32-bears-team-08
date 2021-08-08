@@ -1,5 +1,5 @@
-import React, { createContext, useReducer, useState, useEffect } from "react";
-import { BrowserRouter, Route, Link } from "react-router-dom";
+import React, { createContext, useReducer} from "react";
+import { BrowserRouter, Route, Link, useLocation } from "react-router-dom";
 import Login from "./components/Login";
 import Register from "./components/Register";
 import Dashboard from "./components/Dashboard";
@@ -33,7 +33,7 @@ function reducer(state, action) {
 	}
 }
 
-function App() {
+function App(props) {
 	const [state, dispatch] = useReducer(reducer, initialState);
 
 
@@ -55,13 +55,8 @@ function App() {
 						Learn React
 					</a>
 				</header>
-				<Route path = "/login" component = {Login}></Route>
+				<Route exact = {true} path = "/" component = {Login}></Route>
 				<Route path = "/register" component = {Register}></Route>
-				<Link
-					to = {location=>({...location, pathname: '/register'})}
-				>{`${
-				 "Not registered? Click here"
-				}`}</Link>
 			</div>
 			<Route path = "/dashboard" component = {Dashboard}></Route>
 		</userContext.Provider>

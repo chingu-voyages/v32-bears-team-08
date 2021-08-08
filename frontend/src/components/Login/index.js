@@ -1,5 +1,5 @@
 import React, { useReducer, useContext } from "react";
-import { withRouter } from "react-router-dom";
+import { withRouter, Link, Redirect } from "react-router-dom";
 import { userContext } from "../../App";
 import "./style.css";
 import authServices from "../../services/auth";
@@ -52,7 +52,10 @@ function Login() {
 		}
 	}
 	return (
-		<>
+		<> 
+
+		{!appState.auth ?
+			<>
 			<form
 				onSubmit={(e) => {
 					handleSubmit(e);
@@ -87,7 +90,18 @@ function Login() {
 				<span>{state.error}</span>
 				<button type="submit">Submit</button>
 			</form>
-		</>
+
+			<Link
+					to = {location=>({...location, pathname: `/register`})}
+				>{`${
+				 "Not registered? Click here"
+				}`}</Link>
+				</>
+	
+			: <Redirect to = "/dashboard"></Redirect>}
+				</>
+			
+			
 	);
 }
 
