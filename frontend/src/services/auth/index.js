@@ -1,3 +1,5 @@
+import jwt_decode from "jwt-decode";
+
 const url = process.env.API_BASE_URL || "http://localhost:5000";
 const TOKEN_KEY = process.env.TOKEN_KEY  || "AUTH_TOKEN"
 
@@ -74,7 +76,6 @@ export async function postRefreshToken(){
 
 
 export function saveAuthToken(token){
-	console.log(TOKEN_KEY, token)
 	return window.sessionStorage.setItem(TOKEN_KEY, token)
 
 }
@@ -91,11 +92,16 @@ export function hasAuthToken() {
     return getAuthToken();
   }
 
+export function decodeToken(token){
+	return jwt_decode(token);
+}
+
 export default {
 	  postLogin,
 	  postRegister,
 	  getAuthToken,
 	  saveAuthToken,
 	  clearAuthToken,
-	  hasAuthToken
+	  hasAuthToken,
+	  decodeToken
   }

@@ -41,7 +41,8 @@ function Login() {
 		try {
 			let res = await authServices.postLogin(data);
 			authServices.saveAuthToken(res.authToken)
-			//appDispatch({ type: "SET_USER", payload: res.data.user });
+			const decoded = authServices.decodeToken(res.authToken)
+			appDispatch({ type: "SET_USER", payload: decoded});
 			appDispatch({ type: "SET_AUTH", payload: true });
 		} catch (error) {
 			dispatch({
