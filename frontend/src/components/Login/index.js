@@ -1,4 +1,5 @@
 import React, { useReducer, useContext } from "react";
+import { withRouter } from "react-router-dom";
 import { userContext } from "../../App";
 import "./style.css";
 import authServices from "../../services/auth";
@@ -89,4 +90,4 @@ function Login() {
 	);
 }
 
-export default Login;
+export default withRouter(Login);

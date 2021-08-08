@@ -1,6 +1,8 @@
 import React, { createContext, useReducer, useState, useEffect } from "react";
+import { BrowserRouter, Route, Link } from "react-router-dom";
 import Login from "./components/Login";
 import Register from "./components/Register";
+import Dashboard from "./components/Dashboard";
 import logo from "./logo.svg";
 import "./App.css";
 
@@ -38,6 +40,7 @@ function App() {
 
 
 	return (
+		<BrowserRouter>
 		<userContext.Provider value={{ appState: state, appDispatch: dispatch }}>
 			<div className="App">
 				<header className="App-header">
@@ -54,16 +57,17 @@ function App() {
 						Learn React
 					</a>
 				</header>
-				<>{!register ? <Login /> : <Register />}</>
-				<button
-					onClick={(e) => {
-						setRegister((prev) => !prev);
-					}}
+				<Route path = "/login" component = {Login}></Route>
+				<Route path = "/register" component = {Register}></Route>
+				<Link
+					to = {location=>({...location, pathname: '/register'})}
 				>{`${
 					register ? "Click here to login" : "Not registered? Click here"
-				}`}</button>
+				}`}</Link>
 			</div>
+			<Route path = "/dashboard" component = {Dashboard}></Route>
 		</userContext.Provider>
+		</BrowserRouter>
 	);
 }
 

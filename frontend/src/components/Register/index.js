@@ -1,4 +1,5 @@
 import React, { useReducer } from "react";
+import { withRouter } from "react-router-dom";
 import "./style.css";
 import authServices from "../../services/auth";
 const initialState = {
@@ -137,4 +138,4 @@ function Register() {
 	);
 }
 
-export default Register;
+export default withRouter(Register);
