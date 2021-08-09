@@ -20,18 +20,6 @@ function create(data) {
         .insert(data, "*");
 }
 
-function update(data) {
-    return knex(table)
-        .select("*")
-        .where({ id: data.id })
-        .update({
-            user: data.user,
-            skill: data.skill,
-            proficiency: data.proficiency,
-            streak: data.streak,
-        });
-}
-
 function remove(userSkillId) {
     return knex(table)
         .where({ id: userSkillId })
@@ -42,6 +30,5 @@ module.exports = {
     list,
     find,
     create,
-    update,
     remove,
 }

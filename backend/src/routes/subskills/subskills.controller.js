@@ -1,4 +1,4 @@
-const service = require("./users-languages.service");
+const service = require("./subskills.service");
 const asyncErrorBoundary = require("../../errors/asyncErrorBoundary");
 
 async function list(req, res, next) {
@@ -9,7 +9,7 @@ async function list(req, res, next) {
 }
 
 async function find(req, res, next) {
-    const response = await service.find(req.params.user-language_id);
+    const response = await service.find(req.params.subskill_id);
     if (response[0]) {
         return res.json({ 
             data: response[0],
@@ -17,7 +17,7 @@ async function find(req, res, next) {
     }
     next({
         status: 404,
-        message: `users-language ${req.params.user-language_id} not found`,
+        message: `subskill ${req.params.subskill_id} not found`,
     })
 }
 
@@ -28,8 +28,15 @@ async function create(req, res, next) {
     })
 }
 
+async function update(req, res, next) {
+    const response = await service.update(req.body.data);
+    return res.json({
+        data: response[0],
+    })
+}
+
 async function remove(req, res, next) {
-    const response = await service.remove(req.params.user-language_id);
+    const response = await service.remove(req.params.subskill_id);
     return res.json({
         data: response[0],
     })
@@ -45,33 +52,23 @@ function hasData(req, res, next) {
     })
 }
 
-function hasUser(req, res, next) {
-    if (req.body.data.user) {
+function hasName(req, res, next) {
+    if (req.body.data.anchor) {
         return next();
     }
     next({
         status: 400,
-        message: "request body data must have user property",
+        message: "request body data must have name property",
     })
 }
 
-function hasLanguage(req, res, next) {
-    if (req.body.data.language) {
+function hasSkill(req, res, next) {
+    if (req.body.data.target) {
         return next();
     }
     next({
         status: 400,
-        message: "request body data must have language property",
-    })
-}
-
-function hasFluency(req, res, next) {
-    if (req.body.data.fluency) {
-        return next();
-    }
-    next({
-        status: 400,
-        message: "request body data must have fluency property",
+        message: "request body data must have skill property",
     })
 }
 
@@ -84,10 +81,12 @@ module.exports = {
     ],
     create: [
         hasData,
-        hasUser,
-        hasLanguage,
-        hasFluency,
+        hasName,
+        hasSkill,
         asyncErrorBoundary(create),
+    ],
+    update: [
+        asyncErrorBoundary(update),
     ],
     remove: [
         asyncErrorBoundary(remove),

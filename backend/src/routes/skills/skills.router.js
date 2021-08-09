@@ -11,8 +11,6 @@ router
 router
     .route("/:skill_id")
     .get(controller.find)
-    .put(controller.update)
-    .delete(controller.remove)
     .all(methodNotAllowed);
 
 module.exports = router;

@@ -20,17 +20,6 @@ function create(data) {
         .insert(data, "*");
 }
 
-function update(data) {
-    return knex(table)
-        .select("*")
-        .where({ id: data.id })
-        .update({
-            text: data.text,
-            sender: data.sender,
-            recipient: data.recipient,
-        });
-}
-
 function remove(messageId) {
     return knex(table)
         .where({ id: messageId })
@@ -41,6 +30,5 @@ module.exports = {
     list,
     find,
     create,
-    update,
     remove,
 }

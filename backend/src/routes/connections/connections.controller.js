@@ -52,7 +52,7 @@ function hasData(req, res, next) {
     })
 }
 
-function hasRequested(req, res, next) {
+function hasAnchor(req, res, next) {
     if (req.body.data.user1) {
         return next();
     }
@@ -62,7 +62,7 @@ function hasRequested(req, res, next) {
     })
 }
 
-function hasAccepted(req, res, next) {
+function hasTarget(req, res, next) {
     if (req.body.data.user2) {
         return next();
     }
@@ -91,8 +91,8 @@ module.exports = {
     ],
     create: [
         hasData,
-        hasRequested,
-        hasAccepted,
+        hasAnchor,
+        hasTarget,
         hasSkill,
         asyncErrorBoundary(create),
     ],

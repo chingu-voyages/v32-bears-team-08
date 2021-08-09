@@ -1,15 +1,8 @@
 const service = require("./users.service");
 const asyncErrorBoundary = require("../../errors/asyncErrorBoundary");
 
-async function list(req, res, next) {
-    const response = await service.list();
-    return res.json({
-        data: response,
-    })
-}
-
 async function find(req, res, next) {
-    const response = await service.find(req.params.user_id);
+    const response = await service.find(req.user.id);
     if (response[0]) {
         return res.json({ 
             data: response[0],
@@ -21,14 +14,8 @@ async function find(req, res, next) {
     })
 }
 
-async function create(req, res, next) {
-    const response = await service.create(req.body.data);
-    return res.status(201).json({
-        data: response[0],
-    })
-}
-
 async function update(req, res, next) {
+    
     const response = await service.update(req.body.data);
     return res.json({
         data: response[0],
@@ -36,7 +23,7 @@ async function update(req, res, next) {
 }
 
 async function remove(req, res, next) {
-    const response = await service.remove(req.params.user_id);
+    const response = await service.remove(req.user.id);
     return res.json({
         data: response[0],
     })
@@ -52,44 +39,17 @@ function hasData(req, res, next) {
     })
 }
 
-function hasName(req, res, next) {
-    if (req.body.data.name) {
-        return next();
-    }
-    next({
-        status: 400,
-        message: "request body data must have name property",
-    })
-}
-
-function hasEmail(req, res, next) {
-    if (req.body.data.email) {
-        return next();
-    }
-    next({
-        status: 400,
-        message: "request body data must have email property",
-    })
-}
-
-
 module.exports = {
-    list: [
-        asyncErrorBoundary(list),
-    ],
     find: [
+        hasData,
         asyncErrorBoundary(find),
     ],
-    create: [
-        hasData,
-        hasName,
-        hasEmail,
-        asyncErrorBoundary(create),
-    ],
     update: [
+        hasData,
         asyncErrorBoundary(update),
     ],
     remove: [
+        hasData,
         asyncErrorBoundary(remove),
     ],
 }

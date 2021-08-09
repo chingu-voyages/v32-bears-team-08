@@ -1,17 +1,17 @@
 const knex = require("../../database/connection");
 
-const table = "rejected";
+const table = "subskills";
 
 function list() {
     return knex(table)
         .select("*");
 }
 
-function find(rejectedId) {
+function find(subskillId) {
     return knex(table)
         .select("*")
         .where({
-            id: rejectedId
+            id: subskillId
         });
 }
 
@@ -25,15 +25,14 @@ function update(data) {
         .select("*")
         .where({ id: data.id })
         .update({
-            anchor: data.anchor,
-            target: data.target,
+            name: data.name,
             skill: data.skill,
         });
 }
 
-function remove(rejectedId) {
+function remove(subskillId) {
     return knex(table)
-        .where({ id: rejectedId })
+        .where({ id: subskillId })
         .del();
 }
 

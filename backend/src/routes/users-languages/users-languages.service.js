@@ -20,17 +20,6 @@ function create(data) {
         .insert(data, "*");
 }
 
-function update(data) {
-    return knex(table)
-        .select("*")
-        .where({ id: data.id })
-        .update({
-            user: data.user,
-            language: data.language,
-            fluency: data.fluency,
-        });
-}
-
 function remove(userLanguageId) {
     return knex(table)
         .where({ id: userLanguageId })

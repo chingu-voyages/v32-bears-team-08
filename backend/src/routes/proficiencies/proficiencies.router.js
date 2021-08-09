@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const methodNotAllowed = require("../../errors/methodNotAllowed");
-const controller = require("./users-timeslots.controller");
+const controller = require("./proficiencies.controller");
 const loginController = require("../login/login.controller")
 
 router
@@ -11,7 +11,7 @@ router
     .all(methodNotAllowed);
 
 router
-    .route("/:user-timeslot_id")
+    .route("/:proficiency_id")
     .all(loginController.requireAuth)
     .get(controller.find)
     .put(controller.update)

@@ -21,27 +21,6 @@ async function find(req, res, next) {
     })
 }
 
-async function create(req, res, next) {
-    const response = await service.create(req.body.data);
-    return res.status(201).json({
-        data: response[0],
-    })
-}
-
-async function update(req, res, next) {
-    const response = await service.update(req.body.data);
-    return res.json({
-        data: response[0],
-    })
-}
-
-async function remove(req, res, next) {
-    const response = await service.remove(req.params.language_id);
-    return res.json({
-        data: response[0],
-    })
-}
-
 function hasData(req, res, next) {
     if (req.body.data) {
         return next();
@@ -69,16 +48,5 @@ module.exports = {
     ],
     find: [
         asyncErrorBoundary(find),
-    ],
-    create: [
-        hasData,
-        hasName,
-        asyncErrorBoundary(create),
-    ],
-    update: [
-        asyncErrorBoundary(update),
-    ],
-    remove: [
-        asyncErrorBoundary(remove),
     ],
 }

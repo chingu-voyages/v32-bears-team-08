@@ -13,6 +13,12 @@ exports.up = function (knex) {
             .references("id")
             .inTable("users")
             .onDelete("cascade");
+        table.integer("skill");
+        table
+            .foreign("skill")
+            .references("id")
+            .inTable("skills")
+            .onDelete("cascade");
         table.timestamps(true, true);
     });
 };

@@ -7,9 +7,9 @@ exports.up = function (knex) {
             .references("id")
             .inTable("subskills")
             .onDelete("cascade");
-        table.integer("user-skill");
+        table.integer("user_skill");
         table
-            .foreign("user-skill")
+            .foreign("user_skill")
             .references("id")
             .inTable("users-skills")
             .onDelete("cascade");

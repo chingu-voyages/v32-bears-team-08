@@ -117,4 +117,5 @@ async function refresh(req, res, next) {
 module.exports = {
     login: [hasData, hasEmail, hasPassword, asyncErrorBoundary(findUser)],
     refresh: [asyncErrorBoundary(requireAuth), asyncErrorBoundary(refresh)],
+    requireAuth: [asyncErrorBoundary(requireAuth)]
 };

@@ -2,22 +2,12 @@ const knex = require("../../database/connection");
 
 const table = "users";
 
-function list() {
-    return knex(table)
-        .select("*");
-}
-
 function find(userId) {
     return knex(table)
         .select("*")
         .where({
             id: userId
         });
-}
-
-function create(data) {
-    return knex(table)
-        .insert(data, "*");
 }
 
 function update(data) {
@@ -38,9 +28,7 @@ function remove(userId) {
 }
 
 module.exports = {
-    list,
     find,
-    create,
     update,
     remove,
 }

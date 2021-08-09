@@ -8,36 +8,9 @@ async function list(req, res, next) {
     })
 }
 
-async function find(req, res, next) {
-    const response = await service.find(req.params.invite_id);
-    if (response[0]) {
-        return res.json({ 
-            data: response[0],
-        });
-    }
-    next({
-        status: 404,
-        message: `invite ${req.params.invite_id} not found`,
-    })
-}
-
 async function create(req, res, next) {
     const response = await service.create(req.body.data);
     return res.status(201).json({
-        data: response[0],
-    })
-}
-
-async function update(req, res, next) {
-    const response = await service.update(req.body.data);
-    return res.json({
-        data: response[0],
-    })
-}
-
-async function remove(req, res, next) {
-    const response = await service.remove(req.params.invite_id);
-    return res.json({
         data: response[0],
     })
 }
@@ -86,20 +59,11 @@ module.exports = {
     list: [
         asyncErrorBoundary(list),
     ],
-    find: [
-        asyncErrorBoundary(find),
-    ],
     create: [
         hasData,
         hasEmail,
         hasMessage,
         hasSender,
         asyncErrorBoundary(create),
-    ],
-    update: [
-        asyncErrorBoundary(update),
-    ],
-    remove: [
-        asyncErrorBoundary(remove),
     ],
 }

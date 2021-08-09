@@ -25,11 +25,9 @@ function update(data) {
         .select("*")
         .where({ id: data.id })
         .update({
-            requested: data.requested,
-            accepted: data.accepted,
+            anchor: data.anchor,
+            target: data.target,
             skill: data.skill,
-            connected: data.connected,
-            blocked: data.blocked,
         });
 }
 

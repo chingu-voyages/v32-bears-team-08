@@ -28,13 +28,6 @@ async function create(req, res, next) {
     })
 }
 
-async function update(req, res, next) {
-    const response = await service.update(req.body.data);
-    return res.json({
-        data: response[0],
-    })
-}
-
 async function remove(req, res, next) {
     const response = await service.remove(req.params.message_id);
     return res.json({
@@ -95,9 +88,6 @@ module.exports = {
         hasSender,
         hasRecipient,
         asyncErrorBoundary(create),
-    ],
-    update: [
-        asyncErrorBoundary(update),
     ],
     remove: [
         asyncErrorBoundary(remove),

@@ -28,13 +28,6 @@ async function create(req, res, next) {
     })
 }
 
-async function update(req, res, next) {
-    const response = await service.update(req.body.data);
-    return res.json({
-        data: response[0],
-    })
-}
-
 async function remove(req, res, next) {
     const response = await service.remove(req.params.user-skill_id);
     return res.json({
@@ -72,16 +65,6 @@ function hasSkill(req, res, next) {
     })
 }
 
-function hasProficiency(req, res, next) {
-    if (req.body.data.proficiency) {
-        return next();
-    }
-    next({
-        status: 400,
-        message: "request body data must have proficiency property",
-    })
-}
-
 module.exports = {
     list: [
         asyncErrorBoundary(list),
@@ -92,11 +75,8 @@ module.exports = {
     create: [
         hasData,
         hasUser,
-        hasProficiency,        
+        hasSkill,        
         asyncErrorBoundary(create),
-    ],
-    update: [
-        asyncErrorBoundary(update),
     ],
     remove: [
         asyncErrorBoundary(remove),

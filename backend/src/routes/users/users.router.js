@@ -1,15 +1,11 @@
 const router = require("express").Router();
 const methodNotAllowed = require("../../errors/methodNotAllowed");
 const controller = require("./users.controller");
+const loginController = require("../login/login.controller")
 
 router
-    .route("/")
-    .get(controller.list)
-    .post(controller.create)
-    .all(methodNotAllowed);
-
-router
-    .route("/:user_id")
+    .route("/:user_id")    
+    .all(loginController.requireAuth)
     .get(controller.find)
     .put(controller.update)
     .delete(controller.remove)
