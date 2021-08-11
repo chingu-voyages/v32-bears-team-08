@@ -76,8 +76,8 @@ async function createJWT(subject, payload) {
 }
 
 async function requireAuth(req, res, next) {
-    const authToken = req.body.headers.authorization || "";
-    console.log(req.body.headers);
+    console.log(req.headers.authorization);
+    const authToken = req.headers.authorization || "";
     let bearerToken;
     if (!authToken.toLowerCase().startsWith("bearer ")) {
         return next({
