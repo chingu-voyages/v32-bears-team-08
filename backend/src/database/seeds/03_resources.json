@@ -1,0 +1,50 @@
+[
+    {
+        "title": "3 Simple Dance Moves",
+        "type": "video",
+        "url": "https://www.youtube.com/watch?v=ujREEgxEP7g",
+        "skill": 2
+    },
+    {
+        "title": "Learn to Dance with Three Easy Steps",
+        "type": "video",
+        "url": "https://www.youtube.com/watch?v=klKcQt_awWw",
+        "skill": 2
+    },
+    {
+        "title": "Learn to Dance: A Step-by-step Guide to Ballroom and Latin Dances",
+        "type": "book",
+        "url": "https://www.amazon.com/Learn-Dance-Step-Step-Ballroom/dp/1407511416",
+        "skill": 2
+    },
+    {
+        "title": "Arizona Hiking Trails",
+        "type": "article",
+        "url": "https://azstateparks.com/hiking-trails",
+        "skill": 1
+    },
+    {
+        "title": "Chess Wikipedia",
+        "type": "article",
+        "url": "https://en.wikipedia.org/wiki/Chess",
+        "skill": 5
+    },
+    {
+        "title": "JavaScript MDN",
+        "type": "article",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript",
+        "skill": 8
+    },
+    {
+        "title": "Guitar Lesson - How To Play Your First Chord",
+        "type": "video",
+        "url": "https://www.youtube.com/watch?v=cUxRhesT8gY",
+        "skill": 11
+    },
+    {
+        "title": "France Wikipedia",
+        "type": "article",
+        "url": "https://en.wikipedia.org/wiki/France",
+        "skill": 13
+    }
+]

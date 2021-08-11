@@ -1,0 +1,32 @@
+[
+    {
+        "user": 1,
+        "language": 3,
+        "fluency": "native"
+    },
+    {
+        "user": 2,
+        "language": 3,
+        "fluency": "fluent"
+    },
+    {
+        "user": 2,
+        "language": 14,
+        "fluency": "native"
+    },
+    {
+        "user": 3,
+        "language": 3,
+        "fluency": "fluent"
+    },
+    {
+        "user": 4,
+        "language": 3,
+        "fluency": "native"
+    },
+    {
+        "user": 5,
+        "language": 3,
+        "fluency": "fluent"
+    }
+]

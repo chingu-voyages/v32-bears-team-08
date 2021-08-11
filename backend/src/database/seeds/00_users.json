@@ -1,0 +1,32 @@
+[
+    {
+        "name": "djdenney",
+        "email": "daniel@denneythe.dev",
+        "bio": "my name is daniel and I want to learn how to dance",
+        "active": true
+    },
+    {
+        "name": "alatruwe",
+        "email": "adeline.latruwe@gmail.com",
+        "bio": "my name is adeline and I want to learn how to surf",
+        "active": true
+    },
+    {
+        "name": "aurn7",
+        "email": "arunjose7@gmail.com",
+        "bio": "my name is arun and I want to learn how to play backgammon",
+        "active": true
+    },
+    {
+        "name": "leland",
+        "email": "lklauzer@gmail.com",
+        "bio": "my name is leland and I want to learn how to fly",
+        "active": true
+    },
+    {
+        "name": "awm",
+        "email": "mamrey@gmail.com",
+        "bio": "my name is amrey and I want to learn how to make pasta",
+        "active": true
+    }
+]

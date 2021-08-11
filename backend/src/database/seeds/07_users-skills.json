@@ -1,0 +1,38 @@
+[
+    {
+        "user": 1,
+        "skill": 5,
+        "proficiency": "Novice",
+        "streak": 0
+    },
+    {
+        "user": 2,
+        "skill": 13,
+        "proficiency": "Expert",
+        "streak": 0
+    },
+    {
+        "user": 4,
+        "skill": 4,
+        "proficiency": "Beginner",
+        "streak": 0
+    },
+    {
+        "user": 5,
+        "skill": 6,
+        "proficiency": "Novice",
+        "streak": 5
+    },
+    {
+        "user": 3,
+        "skill": 2,
+        "proficiency": "Advanced",
+        "streak": 0
+    },
+    {
+        "user": 3,
+        "skill": 8,
+        "proficiency": "Novice",
+        "streak": 3
+    }
+]
