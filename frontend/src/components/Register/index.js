@@ -1,14 +1,15 @@
 import React, { useReducer, useContext } from "react";
 import { withRouter, Link, Redirect } from "react-router-dom";
-import "./style.css";
+import styles from "./style.module.css";
 import { userContext } from "../../App";
 import authServices from "../../services/auth";
+
 const initialState = {
-	name: "",
-	email: "",
-	password: "",
-	confirmPassword: "",
-	error: "",
+	name: null,
+	email: null,
+	password: null,
+	confirmPassword: null,
+	error: null,
 };
 
 function reducer(state, action) {
@@ -41,13 +42,19 @@ function reducer(state, action) {
 	}
 }
 
+/*
+	- Register component makes sends user credentials to the registration endpoint
+	- upon good request: saves authToken to sessionStorage and redirects to dashboard
+*/
+
+
 function Register() {
 	const [state, dispatch] = useReducer(reducer, initialState);
 	const { appState, appDispatch } = useContext(userContext);
 
-
 	async function handleSubmit(e) {
 		e.preventDefault();
+		//get form data from local state
 		const data = {
 			name: state.name,
 			email: state.email,
@@ -55,13 +62,20 @@ function Register() {
 			confirmPassword: state.confirmPassword,
 		};
 
+		/* 
+		   - Make request to registration endpoint
+		   - save authToken to sessionStorage
+		   - decode user credentials from authToken
+		   - set global AppState using Context Object dispatch function
+		   - set any errors in local state
+		*/
+
 		try {
 			let res = await authServices.postRegister(data);
-			authServices.saveAuthToken(res.authToken)
-			const decoded = authServices.decodeToken(res.authToken)
-			appDispatch({ type: "SET_USER", payload: decoded});
+			authServices.saveAuthToken(res.authToken);
+			const decoded = authServices.decodeToken(res.authToken);
+			appDispatch({ type: "SET_USER", payload: decoded });
 			appDispatch({ type: "SET_AUTH", payload: true });
-
 		} catch (error) {
 			dispatch({
 				type: "SET_ERROR",
@@ -72,54 +86,65 @@ function Register() {
 	return (
 		<>
 			{!appState.auth ? (
-				<>
+				<div className={styles["register"]}>
+					<div className={styles["register__title"]}>
+						Sign up for Learn Together
+					</div>
+					{state.error && <span className = {styles['register__error']}>{state.error}</span>}
 					<form
+						className={styles["register__form"]}
 						onSubmit={(e) => {
 							handleSubmit(e);
 						}}
 					>
-						<div>Register</div>
-						<label htmlFor="name">
-							<input
-								type="name"
-								id="name"
-								name="name"
-								placeholder="Name"
-								onChange={(e) => {
-									dispatch({ type: "SET_NAME", payload: e.target.value });
-								}}
-							></input>
+						<label htmlFor="name" className={styles["register__form__label"]}>
+							Username
 						</label>
-						<br />
-						<label htmlFor="email">
-							<input
-								type="email"
-								id="email"
-								name="email"
-								placeholder="Email"
-								onChange={(e) => {
-									dispatch({ type: "SET_EMAIL", payload: e.target.value });
-								}}
-							></input>
+
+						<input
+							type="Username"
+							id="Username"
+							name="Username"
+							placeholder="Enter Username"
+							className={styles["register__form__input"]}
+							onChange={(e) => {
+								dispatch({ type: "SET_NAME", payload: e.target.value });
+							}}
+						></input>
+						<label htmlFor="email" className={styles["register__form__label"]}>
+							Email
 						</label>
-						<br />
-						<label htmlFor="password">
+						<input
+							type="email"
+							id="email"
+							name="email"
+							placeholder="Email"
+							className={styles["register__form__input"]}
+							onChange={(e) => {
+								dispatch({ type: "SET_EMAIL", payload: e.target.value });
+							}}
+						></input>
+				
+						<label htmlFor="password" className={styles["register__form__label"]}>Password</label>
 							<input
 								type="password"
 								id="password"
 								name="password"
-								placeholder="Password"
+								placeholder="Enter Password"
+								className={styles["register__form__input"]}
+
 								onChange={(e) => {
 									dispatch({ type: "SET_PASSWORD", payload: e.target.value });
 								}}
 							></input>
-						</label>
-						<label htmlFor="confirmPassword">
+						
+						<label htmlFor="confirmPassword" className={styles["register__form__label"]}>Confirm Password</label>
 							<input
 								type="password"
 								id="confirmPassword"
 								name="confirmPassword"
 								placeholder="Confirm Password"
+								className={styles["register__form__input"]}
 								onChange={(e) => {
 									dispatch({
 										type: "SET_CONFIRM_PASSWORD",
@@ -127,15 +152,12 @@ function Register() {
 									});
 								}}
 							></input>
-						</label>
-						<br />
-						<span>{state.error}</span>
-						<button type="submit">Submit</button>
+						<button type="submit" className ={styles['register__form__button']}>Submit</button>
 					</form>
-					<Link
+					<Link className ={styles['register__login-link']}
 						to={(location) => ({ ...location, pathname: `/` })}
 					>{`${"Already Registered? Click here to login"}`}</Link>
-				</>
+				</div>
 			) : (
 				<Redirect to={"/dashboard"}></Redirect>
 			)}
