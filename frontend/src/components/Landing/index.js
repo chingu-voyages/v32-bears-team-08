@@ -47,7 +47,7 @@ function Landing() {
 				})}
 			</div>
 			<div className={styles["app-info"]}>
-				<div className={styles["details__title"]}>Learn Together</div>
+				<div className={styles["title"]}>Learn Together</div>
 				{!state.register && !state.login && (
 					<div className={styles["details"]}>
 						<div className={styles["details__copy"]}>
@@ -106,7 +106,7 @@ function Landing() {
 					<>
 						<Login></Login>
 						<span className={styles["toggle"]}>
-							Are you new around here? Click&nbsp;
+							New around here? Click&nbsp;
 							<button
 								className={styles["toggle__link"]}
 								onClick={(e) => {
