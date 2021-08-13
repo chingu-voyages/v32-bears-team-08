@@ -1,9 +1,10 @@
 :root{
     font-size: 10px;
     height: 100%;
-  --font-size-small: 1.8rem;
-  --font-size-medium: 2rem;
-  --font-size-large: 3.6rem;
+  --font-size-extra-small: 1.4rem;
+  --font-size-small: 1.6rem;
+  --font-size-medium: 1.8rem;
+  --font-size-header: 2.8rem;
   --line-height-button: 1.25;
   --line-height-text: 2rem;
   --color-primary: black;
@@ -11,7 +12,7 @@
   --color-bg: white;
   --color-bg-button: #6A6A6A; 
   --color-bg-input: #C4C4C4;
-  --color-bg-error: rgb(254, 222, 227);
+  --color-bg-pink: rgb(254, 222, 227);
 }
 
 
