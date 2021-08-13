@@ -1,5 +1,6 @@
 import React, { createContext, useReducer} from "react";
 import { BrowserRouter, Route, Link, useLocation } from "react-router-dom";
+import Landing from "./components/Landing"
 import Login from "./components/Login";
 import Register from "./components/Register";
 import Dashboard from "./components/Dashboard";
@@ -40,8 +41,7 @@ function App(props) {
 	return (
 		<BrowserRouter>
 		<userContext.Provider value={{ appState: state, appDispatch: dispatch }}>
-				<Route exact = {true} path = "/" component = {Login}></Route>
-				<Route path = "/register" component = {Register}></Route>
+				<Route exact = {true} path = "/" component = {Landing}></Route>
 				<Route path = "/dashboard" component = {Dashboard}></Route>
 		</userContext.Provider>
 		</BrowserRouter>
