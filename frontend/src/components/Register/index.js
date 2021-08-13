@@ -1,5 +1,5 @@
 import React, { useReducer, useContext } from "react";
-import { withRouter, Link, Redirect } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import styles from "./style.module.css";
 import { userContext } from "../../App";
 import authServices from "../../services/auth";
@@ -8,7 +8,6 @@ const initialState = {
 	name: null,
 	email: null,
 	password: null,
-	confirmPassword: null,
 	error: null,
 };
 
@@ -29,11 +28,6 @@ function reducer(state, action) {
 				...state,
 				password: action.payload,
 			};
-		case "SET_CONFIRM_PASSWORD":
-			return {
-				...state,
-				confirmPassword: action.payload,
-			};
 		case "SET_ERROR":
 			return {
 				...state,
@@ -47,7 +41,6 @@ function reducer(state, action) {
 	- upon good request: saves authToken to sessionStorage and redirects to dashboard
 */
 
-
 function Register() {
 	const [state, dispatch] = useReducer(reducer, initialState);
 	const { appState, appDispatch } = useContext(userContext);
@@ -59,7 +52,6 @@ function Register() {
 			name: state.name,
 			email: state.email,
 			password: state.password,
-			confirmPassword: state.confirmPassword,
 		};
 
 		/* 
@@ -87,10 +79,9 @@ function Register() {
 		<>
 			{!appState.auth ? (
 				<div className={styles["register"]}>
-					<div className={styles["register__title"]}>
-						Sign up for Learn Together
-					</div>
-					{state.error && <span className = {styles['register__error']}>{state.error}</span>}
+					{state.error && (
+						<span className={styles["register__error"]}>{state.error}</span>
+					)}
 					<form
 						className={styles["register__form"]}
 						onSubmit={(e) => {
@@ -124,39 +115,28 @@ function Register() {
 								dispatch({ type: "SET_EMAIL", payload: e.target.value });
 							}}
 						></input>
-				
-						<label htmlFor="password" className={styles["register__form__label"]}>Password</label>
-							<input
-								type="password"
-								id="password"
-								name="password"
-								placeholder="Enter Password"
-								className={styles["register__form__input"]}
 
-								onChange={(e) => {
-									dispatch({ type: "SET_PASSWORD", payload: e.target.value });
-								}}
-							></input>
-						
-						<label htmlFor="confirmPassword" className={styles["register__form__label"]}>Confirm Password</label>
-							<input
-								type="password"
-								id="confirmPassword"
-								name="confirmPassword"
-								placeholder="Confirm Password"
-								className={styles["register__form__input"]}
-								onChange={(e) => {
-									dispatch({
-										type: "SET_CONFIRM_PASSWORD",
-										payload: e.target.value,
-									});
-								}}
-							></input>
-						<button type="submit" className ={styles['register__form__button']}>Submit</button>
+						<label
+							htmlFor="password"
+							className={styles["register__form__label"]}
+						>
+							Password
+						</label>
+						<input
+							type="password"
+							id="password"
+							name="password"
+							placeholder="Enter Password"
+							className={styles["register__form__input"]}
+							onChange={(e) => {
+								dispatch({ type: "SET_PASSWORD", payload: e.target.value });
+							}}
+						></input>
+
+						<button type="submit" className={styles["register__form__button"]}>
+							Register
+						</button>
 					</form>
-					<Link className ={styles['register__login-link']}
-						to={(location) => ({ ...location, pathname: `/` })}
-					>{`${"Already Registered? Click here to login"}`}</Link>
 				</div>
 			) : (
 				<Redirect to={"/dashboard"}></Redirect>
@@ -165,4 +145,4 @@ function Register() {
 	);
 }
 
-export default withRouter(Register);
+export default Register;
