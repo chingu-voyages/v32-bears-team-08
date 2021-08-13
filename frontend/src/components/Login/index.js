@@ -27,6 +27,8 @@ function reducer(state, action) {
 				...state,
 				error: action.payload,
 			};
+		default:
+			return { ...state };
 	}
 }
 
@@ -38,7 +40,6 @@ function reducer(state, action) {
 function Login() {
 	const [state, dispatch] = useReducer(reducer, initialState);
 	const { appState, appDispatch } = useContext(userContext);
-
 
 	async function handleSubmit(e) {
 		e.preventDefault();
@@ -69,41 +70,45 @@ function Login() {
 	return (
 		<>
 			{!appState.auth ? (
-				<div className={styles['login']}>
+				<div className={styles["login"]}>
 					{/* <div className={styles['login__title']}>Log in to Learn Together</div> */}
-					{state.error && <span className = {styles['login__error']}>{state.error}</span>}
+					{state.error && (
+						<span className={styles["login__error"]}>{state.error}</span>
+					)}
 					<form
-						className={styles['login__form']}
+						className={styles["login__form"]}
 						onSubmit={(e) => {
 							handleSubmit(e);
 						}}
 					>
-						<label htmlFor="email" className={styles['login__form__label']}>
+						<label htmlFor="email" className={styles["login__form__label"]}>
 							Email
 						</label>
 						<input
-								type="email"
-								id="email"
-								name="email"
-								placeholder="Enter Email"
-								className={styles['login__form__input']}
-								onChange={(e) => {
-									dispatch({ type: "SET_EMAIL", payload: e.target.value });
-								}}
-							></input>
-						<label htmlFor="password" className={styles['login__form__label']}>Password</label>
-							<input
-								type="password"
-								id="password"
-								name="password"
-								placeholder="Enter Password"
-								className={styles['login__form__input']}
-								onChange={(e) => {
-									dispatch({ type: "SET_PASSWORD", payload: e.target.value });
-								}}
-							></input>
-					
-						<button className={styles['login__form__button']} type="submit">
+							type="email"
+							id="email"
+							name="email"
+							placeholder="Enter Email"
+							className={styles["login__form__input"]}
+							onChange={(e) => {
+								dispatch({ type: "SET_EMAIL", payload: e.target.value });
+							}}
+						></input>
+						<label htmlFor="password" className={styles["login__form__label"]}>
+							Password
+						</label>
+						<input
+							type="password"
+							id="password"
+							name="password"
+							placeholder="Enter Password"
+							className={styles["login__form__input"]}
+							onChange={(e) => {
+								dispatch({ type: "SET_PASSWORD", payload: e.target.value });
+							}}
+						></input>
+
+						<button className={styles["login__form__button"]} type="submit">
 							Log in
 						</button>
 					</form>

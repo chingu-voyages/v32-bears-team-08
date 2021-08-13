@@ -17,6 +17,8 @@ function reducer(state, action) {
 			return { ...state, register: false, login: action.payload };
 		case "SET_REGISTER":
 			return { ...state, login: false, register: action.payload };
+		default:
+			return { ...state };
 	}
 }
 
@@ -39,6 +41,7 @@ function Landing() {
 						<img
 							className={styles["gallery__image"]}
 							src={landingImages[`image_${ele}`]}
+							alt={"cute cartoon animals practicing various skills"}
 						></img>
 					);
 				})}
@@ -66,31 +69,53 @@ function Landing() {
 						</div>
 						<button
 							className={styles["details__button"]}
-							onClick={(e)=>{setRegister()}}
+							onClick={(e) => {
+								setRegister();
+							}}
 						>
 							Get Started
 						</button>
 						<button
 							className={styles["details__button"]}
-							onClick={() => {setLogin()}}
+							onClick={() => {
+								setLogin();
+							}}
 						>
 							Log In
 						</button>
 					</div>
 				)}
-				{state.register && <><Register></Register>
-                    <span className={styles["toggle"]}>
+				{state.register && (
+					<>
+						<Register></Register>
+						<span className={styles["toggle"]}>
 							Already have an account? Click&nbsp;
-							<button className={styles["toggle__link"]} onClick ={(e)=>{setLogin()}}>here</button> to log in.
+							<button
+								className={styles["toggle__link"]}
+								onClick={(e) => {
+									setLogin();
+								}}
+							>
+								here
+							</button>{" "}
+							to log in.
 						</span>
-                </>}
+					</>
+				)}
 				{state.login && (
 					<>
 						<Login></Login>
 						<span className={styles["toggle"]}>
 							Are you new around here? Click&nbsp;
-							<button className={styles["toggle__link"]} onClick ={(e)=>{setRegister()}}>here</button> to get
-							started.
+							<button
+								className={styles["toggle__link"]}
+								onClick={(e) => {
+									setRegister();
+								}}
+							>
+								here
+							</button>{" "}
+							to get started.
 						</span>
 					</>
 				)}

@@ -96,12 +96,15 @@ export function decodeToken(token){
 	return jwt_decode(token);
 }
 
-export default {
-	  postLogin,
-	  postRegister,
-	  getAuthToken,
-	  saveAuthToken,
-	  clearAuthToken,
-	  hasAuthToken,
-	  decodeToken
-  }
+const authServices = {
+	postLogin,
+	postRegister,
+	getAuthToken,
+	saveAuthToken,
+	clearAuthToken,
+	hasAuthToken,
+	decodeToken
+
+}
+
+export default authServices

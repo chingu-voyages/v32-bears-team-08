@@ -1,10 +1,7 @@
 import React, { createContext, useReducer} from "react";
-import { BrowserRouter, Route, Link, useLocation } from "react-router-dom";
+import { BrowserRouter, Route} from "react-router-dom";
 import Landing from "./components/Landing"
-import Login from "./components/Login";
-import Register from "./components/Register";
 import Dashboard from "./components/Dashboard";
-import logo from "./logo.svg";
 import "./App.css";
 
 
