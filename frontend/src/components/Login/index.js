@@ -1,5 +1,5 @@
 import React, { useReducer, useContext } from "react";
-import { withRouter, Link, Redirect } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import { userContext } from "../../App";
 import styles from "./style.module.css";
 import authServices from "../../services/auth";
@@ -70,7 +70,7 @@ function Login() {
 		<>
 			{!appState.auth ? (
 				<div className={styles['login']}>
-					<div className={styles['login__title']}>Log in to Learn Together</div>
+					{/* <div className={styles['login__title']}>Log in to Learn Together</div> */}
 					{state.error && <span className = {styles['login__error']}>{state.error}</span>}
 					<form
 						className={styles['login__form']}
@@ -107,11 +107,6 @@ function Login() {
 							Log in
 						</button>
 					</form>
-
-					<Link
-						className = {styles['login__registration-link']}
-						to={(location) => ({ ...location, pathname: `/register` })}
-					>{`${"Are you new around here? Click here to register."}`}</Link>
 				</div>
 			) : (
 				<Redirect to="/dashboard"></Redirect>
@@ -120,4 +115,4 @@ function Login() {
 	);
 }
 
-export default withRouter(Login);
+export default Login;
