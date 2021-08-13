@@ -19,6 +19,8 @@
 	color: var(--color-primary);
 	width: 100%;
 	padding: 2rem;
+	background: var(--color-bg-landing);
+
 }
 
 .register__title {
