@@ -9,10 +9,11 @@
   --line-height-text: 2rem;
   --color-primary: black;
   --color-secondary: #FF00E5;
-  --color-bg: white;
+  --color-bg: #fff;
   --color-bg-button: #6A6A6A; 
   --color-bg-input: #C4C4C4;
   --color-bg-pink: rgb(254, 222, 227);
+  --color-bg-landing: #fff6ff;
 }
 
 
