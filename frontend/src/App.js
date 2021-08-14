@@ -1,9 +1,7 @@
 import React, { createContext, useReducer} from "react";
-import { BrowserRouter, Route, Link, useLocation } from "react-router-dom";
-import Login from "./components/Login";
-import Register from "./components/Register";
+import { BrowserRouter, Route} from "react-router-dom";
+import Landing from "./components/Landing"
 import Dashboard from "./components/Dashboard";
-import logo from "./logo.svg";
 import "./App.css";
 
 
@@ -40,25 +38,8 @@ function App(props) {
 	return (
 		<BrowserRouter>
 		<userContext.Provider value={{ appState: state, appDispatch: dispatch }}>
-			<div className="App">
-				<header className="App-header">
-					<img src={logo} className="App-logo" alt="logo" />
-					<p>
-						Edit <code>src/App.js</code> and save to reload.
-					</p>
-					<a
-						className="App-link"
-						href="https://reactjs.org"
-						target="_blank"
-						rel="noopener noreferrer"
-					>
-						Learn React
-					</a>
-				</header>
-				<Route exact = {true} path = "/" component = {Login}></Route>
-				<Route path = "/register" component = {Register}></Route>
-			</div>
-			<Route path = "/dashboard" component = {Dashboard}></Route>
+				<Route exact = {true} path = "/" component = {Landing}></Route>
+				<Route path = "/dashboard" component = {Dashboard}></Route>
 		</userContext.Provider>
 		</BrowserRouter>
 	);

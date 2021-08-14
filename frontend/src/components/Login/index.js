@@ -1,7 +1,7 @@
 import React, { useReducer, useContext } from "react";
-import { withRouter, Link, Redirect } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import { userContext } from "../../App";
-import "./style.css";
+import styles from "./style.module.css";
 import authServices from "../../services/auth";
 
 const initialState = {
@@ -27,8 +27,15 @@ function reducer(state, action) {
 				...state,
 				error: action.payload,
 			};
+		default:
+			return { ...state };
 	}
 }
+
+/*
+	- login component makes sends user credentials to the login endpoint
+	- upon good request: saves authToken to sessionStorage and redirects to dashboard
+*/
 
 function Login() {
 	const [state, dispatch] = useReducer(reducer, initialState);
@@ -36,13 +43,22 @@ function Login() {
 
 	async function handleSubmit(e) {
 		e.preventDefault();
+		//get form data from local state
 		const data = { email: state.email, password: state.password };
+
+		/* 
+		   - Make request to login endpoint
+		   - save authToken to sessionStorage
+		   - decode user credentials from authToken
+		   - set global AppState using Context Object dispatch function
+		   - set any errors in local state
+		*/
 
 		try {
 			let res = await authServices.postLogin(data);
-			authServices.saveAuthToken(res.authToken)
-			const decoded = authServices.decodeToken(res.authToken)
-			appDispatch({ type: "SET_USER", payload: decoded});
+			authServices.saveAuthToken(res.authToken);
+			const decoded = authServices.decodeToken(res.authToken);
+			appDispatch({ type: "SET_USER", payload: decoded });
 			appDispatch({ type: "SET_AUTH", payload: true });
 		} catch (error) {
 			dispatch({
@@ -52,57 +68,56 @@ function Login() {
 		}
 	}
 	return (
-		<> 
-
-		{!appState.auth ?
-			<>
-			<form
-				onSubmit={(e) => {
-					handleSubmit(e);
-				}}
-			>
-				<div>Login</div>
-				<label htmlFor="email">
-					<input
-						type="email"
-						id="email"
-						name="email"
-						placeholder="Email"
-						onChange={(e) => {
-							dispatch({ type: "SET_EMAIL", payload: e.target.value });
+		<>
+			{!appState.auth ? (
+				<div className={styles["login"]}>
+					{/* <div className={styles['login__title']}>Log in to Learn Together</div> */}
+					{state.error && (
+						<span className={styles["login__error"]}>{state.error}</span>
+					)}
+					<form
+						className={styles["login__form"]}
+						onSubmit={(e) => {
+							handleSubmit(e);
 						}}
-					></input>
-				</label>
-				<br />
-				<label htmlFor="password">
-					<input
-						type="password"
-						id="password"
-						name="password"
-						placeholder="Password"
-						onChange={(e) => {
-							dispatch({ type: "SET_PASSWORD", payload: e.target.value });
-						}}
-					></input>
-				</label>
-				<br />
-				<div></div>
-				<span>{state.error}</span>
-				<button type="submit">Submit</button>
-			</form>
+					>
+						<label htmlFor="email" className={styles["login__form__label"]}>
+							Email
+						</label>
+						<input
+							type="email"
+							id="email"
+							name="email"
+							placeholder="Enter Email"
+							className={styles["login__form__input"]}
+							onChange={(e) => {
+								dispatch({ type: "SET_EMAIL", payload: e.target.value });
+							}}
+						></input>
+						<label htmlFor="password" className={styles["login__form__label"]}>
+							Password
+						</label>
+						<input
+							type="password"
+							id="password"
+							name="password"
+							placeholder="Enter Password"
+							className={styles["login__form__input"]}
+							onChange={(e) => {
+								dispatch({ type: "SET_PASSWORD", payload: e.target.value });
+							}}
+						></input>
 
-			<Link
-					to = {location=>({...location, pathname: `/register`})}
-				>{`${
-				 "Not registered? Click here"
-				}`}</Link>
-				</>
-	
-			: <Redirect to = "/dashboard"></Redirect>}
-				</>
-			
-			
+						<button className={styles["login__form__button"]} type="submit">
+							Log in
+						</button>
+					</form>
+				</div>
+			) : (
+				<Redirect to="/dashboard"></Redirect>
+			)}
+		</>
 	);
 }
 
-export default withRouter(Login);
+export default Login;

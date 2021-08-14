@@ -30,6 +30,5 @@ module.exports = {
     list,
     find,
     create,
-    update,
     remove,
 }
