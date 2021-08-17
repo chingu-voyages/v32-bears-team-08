@@ -1,0 +1,34 @@
+.dashboard {
+  display: flex;
+  justify-content: space-around;
+}
+
+.dashboard-left {
+}
+
+.dashboard-right {
+  display: flex;
+  justify-content: space-around;
+}
+
+.dashboard-right > div {
+  padding: 2em;
+}
+
+.dashboard-button {
+  cursor: pointer;
+  background-color: var(--color-bg-button);
+  border: 0;
+  padding: 1.6rem 4.2rem;
+  line-height: var(--button-line-height);
+  text-decoration: none;
+  color: white;
+  font-size: var(--font-size-small);
+  width: 100%;
+  height: 5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: none;
+  margin-top: 1rem;
+}
