@@ -15,6 +15,13 @@ function find(userLanguageId) {
         });
 }
 
+function findByUser(userId) {
+    return knex(table)
+        .select("*")
+        .where({
+            user: userId
+        });
+}
 function create(data) {
     return knex(table)
         .insert(data, "*");
@@ -29,6 +36,7 @@ function remove(userLanguageId) {
 module.exports = {
     list,
     find,
+    findByUser,
     create,
     remove,
 }

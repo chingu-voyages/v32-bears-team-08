@@ -1,4 +1,5 @@
 const service = require("./users-languages.service");
+const languageService = require("../languages/languages.service")
 const asyncErrorBoundary = require("../../errors/asyncErrorBoundary");
 
 async function list(req, res, next) {
@@ -19,6 +20,28 @@ async function find(req, res, next) {
         status: 404,
         message: `users-language ${req.params.user-language_id} not found`,
     })
+}
+
+async function findUserLanguages(req, res, next) {
+	const response = await service.findByUser(req.params.user_id);
+
+	if (response[0]) {
+		const languages = await response.map(async (ele) => {
+			const language = await languageService.find(ele.language);
+			return language[0];
+		})
+
+		const data = await Promise.all(languages);
+
+		return res.json({
+			data: data,
+		});
+	}
+
+	next({
+		status: 404,
+		message: `user ${req.params.user_id} not found`,
+	});
 }
 
 async function create(req, res, next) {
@@ -81,6 +104,9 @@ module.exports = {
     ],
     find: [
         asyncErrorBoundary(find),
+    ],
+    findUserLanguages:[
+        asyncErrorBoundary(findUserLanguages)
     ],
     create: [
         hasData,
