@@ -2,6 +2,7 @@ import React, { createContext, useReducer} from "react";
 import { BrowserRouter, Route} from "react-router-dom";
 import Landing from "./components/Landing"
 import Dashboard from "./components/Dashboard";
+import Profile from "./components/Profile"
 import "./App.css";
 
 
@@ -40,6 +41,7 @@ function App(props) {
 		<userContext.Provider value={{ appState: state, appDispatch: dispatch }}>
 				<Route exact = {true} path = "/" component = {Landing}></Route>
 				<Route path = "/dashboard" component = {Dashboard}></Route>
+				<Route path = "/profile" component  = {Profile}></Route>
 		</userContext.Provider>
 		</BrowserRouter>
 	);
