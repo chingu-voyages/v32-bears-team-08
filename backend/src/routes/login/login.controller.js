@@ -23,7 +23,7 @@ async function findUser(req, res, next) {
             message: "Incorrect email address or password",
         });
     }
-    const token = await createJWT(response.email, { id: response.id });
+    const token = await createJWT(response.email, { id: response.id, name: response.name });
     return res.send({
         authToken: token,
     });
