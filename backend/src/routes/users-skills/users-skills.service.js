@@ -15,6 +15,16 @@ function find(userSkillId) {
         });
 }
 
+function findByUser(userId) {
+    return knex(table)
+        .select("*")
+        .where({
+            user: userId
+        });
+}
+
+
+
 function create(data) {
     return knex(table)
         .insert(data, "*");
@@ -29,6 +39,7 @@ function remove(userSkillId) {
 module.exports = {
     list,
     find,
+    findByUser,
     create,
     remove,
 }
