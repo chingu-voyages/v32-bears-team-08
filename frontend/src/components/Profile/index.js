@@ -1,13 +1,15 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { userContext } from "../../App";
 import useProfileApi from "../../hooks/useProfileApi";
 import { withRouter } from "react-router";
+import EditProfile from "../EditProfile";
 import style from "./style.module.css";
 
 function Profile() {
 	//set state
 	const { appState } = useContext(userContext);
 	const [skills, goal, languages, error] = useProfileApi(appState.user.id);
+    const [edit, setEdit] = useState(false)
 
 	return (
         <div className ={style['wrapper']}>
@@ -49,9 +51,11 @@ function Profile() {
 
 			<div className={style["edit-profile"]}>
 				{/* handle Click */}
-				<button className={style["edit-profile__buttom"]}>Edit Profile</button>
+				<button className={style["edit-profile__buttom"]} onClick ={()=>setEdit(prev=>!prev)}>Edit Profile</button>
 			</div>
 		</div>
+
+            {edit && <EditProfile skills= {skills} languages = {languages} goal = {goal}/>}
         </div>
 	);
 }
