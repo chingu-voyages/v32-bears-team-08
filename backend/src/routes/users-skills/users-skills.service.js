@@ -23,6 +23,12 @@ function findByUser(userId) {
         });
 }
 
+function findByUserAndSkill(data){
+    return knex(table)
+    .select("*")
+    .where('user', data.user).where('skill', data.skill)
+}
+
 
 
 function create(data) {
@@ -40,6 +46,7 @@ module.exports = {
     list,
     find,
     findByUser,
+    findByUserAndSkill,
     create,
     remove,
 }

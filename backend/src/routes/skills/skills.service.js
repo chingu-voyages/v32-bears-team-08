@@ -3,25 +3,28 @@ const knex = require("../../database/connection");
 const table = "skills";
 
 function list() {
-    return knex(table)
-        .select("*");
+	return knex(table).select("*");
 }
 
 function find(skillId) {
-    return knex(table)
-        .select("*")
-        .where({
-            id: skillId
+	return knex(table).select("*").where({
+		id: skillId,
+	});
+}
+
+function findByName(skillName) {
+	return knex(table).select("*").where({
+         name: skillName 
         });
 }
 
 function create(data) {
-    return knex(table)
-        .insert(data, "*");
+	return knex(table).insert(data, "*");
 }
 
 module.exports = {
-    list,
-    find,
-    create,
-}
+	list,
+	find,
+    findByName,
+	create,
+};
