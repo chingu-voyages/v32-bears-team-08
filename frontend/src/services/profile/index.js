@@ -61,10 +61,10 @@ export async function getUserSkills(userId) {
   }
 
 
-  const apiServices = {
+  const profileServices = {
       getUser,
       getUserSkills,
       getUserLanguages,
   }
 
-  export default apiServices
+  export default profileServices

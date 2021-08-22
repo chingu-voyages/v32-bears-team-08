@@ -1,5 +1,5 @@
 import {useState, useEffect} from 'react'
-import apiServices from '../services/api'
+import profileServices from '../services/profile'
 
 function useProfileApi(userId){
     const [skills, setSkills] = useState([])
@@ -14,9 +14,9 @@ function useProfileApi(userId){
         async function fetchData(){
 
         try{
-            const user = await apiServices.getUser(userId)
-            const skills = await apiServices.getUserSkills(userId)
-            const languages = await apiServices.getUserLanguages(userId)
+            const user = await profileServices.getUser(userId)
+            const skills = await profileServices.getUserSkills(userId)
+            const languages = await profileServices.getUserLanguages(userId)
             setSkills(skills.data)
             setGoal(user.data.goal)
             setLanguages(languages.data)
