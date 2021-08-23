@@ -22,16 +22,6 @@ async function find(req, res, next) {
 	});
 }
 
-async function findUserSkills(req, res, next){
-	const {user} = req
-	const response = await service.findByUser({user: user.id})
-
-	return res.json({
-		data: response,
-	});
-	
-}
-
 async function create(req, res, next) {
 	const { user } = req;
 
@@ -101,6 +91,5 @@ function hasName(req, res, next) {
 module.exports = {
 	list: [asyncErrorBoundary(list)],
 	find: [hasData, asyncErrorBoundary(find)],
-	findUserSkills: [asyncErrorBoundary(findUserSkills)],
 	create: [hasData, hasName, asyncErrorBoundary(create)],
 };
