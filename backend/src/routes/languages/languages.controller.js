@@ -47,8 +47,6 @@ async function create(req, res, next) {
 
 	//check if user already has a relationship with the language
 
-    console.log(user, findLanguage[0])
-
 	const findUserLanguage = await usersLanguagesService.findOneByUserandLanguage({
 		user: user.id,
 		language: findLanguage[0].id,
@@ -62,12 +60,12 @@ async function create(req, res, next) {
 		});
 
 		return res.status(201).json({
-			data: { language: language[0], userLanguage: userLanguage[0] },
+			data: { language: findLanguage[0], userLanguage: userLanguage[0] },
 		});
 	} else {
 		return next({
 			status: 400,
-			message: "user already has this skill",
+			message: "user already has this language",
 		});
 	}
 }

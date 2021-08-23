@@ -9,7 +9,7 @@ async function list(req, res, next) {
 }
 
 async function find(req, res, next) {
-	const response = await service.find(req.params.user - language_id);
+	const response = await service.find(req.params.user_language_id);
 	if (response[0]) {
 		return res.json({
 			data: response[0],
@@ -17,7 +17,7 @@ async function find(req, res, next) {
 	}
 	next({
 		status: 404,
-		message: `users-language ${req.params.user - language_id} not found`,
+		message: `users-language ${req.params.user_language_id} not found`,
 	});
 }
 
@@ -37,7 +37,7 @@ async function create(req, res, next) {
 }
 
 async function remove(req, res, next) {
-	const response = await service.remove(req.params.user - language_id);
+	const response = await service.remove(req.params.user_language_id);
 	return res.json({
 		data: response[0],
 	});

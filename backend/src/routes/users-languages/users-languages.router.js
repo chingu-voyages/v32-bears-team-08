@@ -11,7 +11,7 @@ router
 	.all(methodNotAllowed);
 
 router
-	.route("/:user-language_id")
+	.route("/:user_language_id")
 	.all(loginController.requireAuth)
 	.get(controller.find)
 	.delete(controller.remove)
