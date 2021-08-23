@@ -27,10 +27,6 @@ async function create(req, res, next) {
 
 	//check if skill already exists
 	const findSkill = await service.findByName(req.body.data.name);
-
-    console.log(findSkill)
-
-
 	//if skill doesn't exist, then insert skill and new users-skills into db
 	if (!findSkill[0]) {
 		const skill = await service.create(req.body.data);
