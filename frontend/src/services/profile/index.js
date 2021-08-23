@@ -23,7 +23,7 @@ export async function getUser(userId) {
 
 
 export async function getUserSkills(userId) {
-    let response = await fetch(`${config.API_ENDPOINT}/skills/user/${userId}`, {
+    let response = await fetch(`${config.API_ENDPOINT}/users-skills/user/${userId}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

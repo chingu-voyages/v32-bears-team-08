@@ -22,6 +22,17 @@ async function find(req, res, next) {
 	});
 }
 
+async function findByUser(req, res, next){
+	const id = req.params.user_id
+
+	const response = await service.findByUser(id)
+
+	return res.json({
+		data: response,
+	});
+	
+}
+
 async function create(req, res, next) {
 	const response = await service.create(req.body.data);
 	return res.status(201).json({
@@ -69,6 +80,7 @@ function hasSkill(req, res, next) {
 module.exports = {
 	list: [asyncErrorBoundary(list)],
 	find: [asyncErrorBoundary(find)],
+	findByUser : [asyncErrorBoundary(findByUser)],
 	create: [hasData, hasUser, hasSkill, asyncErrorBoundary(create)],
 	remove: [asyncErrorBoundary(remove)],
 };
