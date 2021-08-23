@@ -92,6 +92,29 @@ export async function postSkill(name) {
   }
 
 
+  export async function putGoal (data) {
+
+    let response = await fetch(`${config.API_ENDPOINT}/users/${data.userId}`, {
+      method: "PUT",
+      body: JSON.stringify({
+        data: {id: data.userId, goal: data.goal},
+
+      }),
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${getAuthToken()}`,
+
+      },
+    });
+  
+    const json = await response.json();
+  
+    if (!response.ok) {
+      return Promise.reject({ message: json.error });
+    }
+  
+    return json;
+  }
 
 
 const editProfile ={
@@ -99,6 +122,7 @@ const editProfile ={
     deleteUserSkill,
     postLanguage,
     deleteUserLanguage,
+    putGoal
 
 }
 

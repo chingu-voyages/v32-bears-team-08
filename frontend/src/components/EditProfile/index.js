@@ -6,9 +6,10 @@ import style from "./style.module.css";
 
 const initialState = {
 	input_skill: "",
-    "user-skill": "",
+	"user-skill": "",
 	input_goal: "",
 	input_language: "",
+	"user-language": "",
 };
 
 function reducer(state, action) {
@@ -31,6 +32,8 @@ function reducer(state, action) {
 				...state,
 				input_language: action.payload,
 			};
+		case "SET_USER_LANGUAGE":
+			return { ...state, "user-language": action.payload };
 		case "SET_ERROR":
 			return {
 				...state,
@@ -46,17 +49,32 @@ function EditProfile(props) {
 	const [state, dispatch] = useReducer(reducer, initialState);
 	const { skills, goal, languages } = props;
 
-	function addSkill(event) {
-		const skill = state.input_skill;
-		editProfile.postSkill(skill);
+	function handleSelectChange(e, type) {
+		dispatch({ type, payload: e.target.value });
 	}
 
-	function deleteSkill(event) {
-		editProfile.deleteUserSkill(state['user-skill']);
-	}
+    function handleError(err){
+        dispatch({type: "SET_ERROR", payload: err})
+    }
 
-    function handleSelectChange(e, type){
-        dispatch({type, payload: e.target.value})
+    function addSkill(){
+        editProfile.postSkill(state.input_skill).catch(err=>handleError(err))
+    }
+
+    function addLanguage(){
+        editProfile.postLanguage(state.input_language).catch(err=>handleError(err))
+    }
+
+    function deleteLanguage(){
+        editProfile.deleteUserLanguage(state["user-language"]).catch(err=>handleError(err))
+    }
+
+    function deleteSkill(){
+        editProfile.deleteUserSkill(state["user-skill"]).catch(err=>handleError(err))
+    }
+
+    function editGoal(){
+        editProfile.putGoal({userId:appState.user.id, goal:state['input_goal']})
     }
 
 	return (
@@ -71,15 +89,15 @@ function EditProfile(props) {
 					onChange={(e) => {
 						dispatch({ type: "SET_SKILL", payload: e.target.value });
 					}}
-
 				/>
 				<input
 					type={"button"}
 					name={"add-interest"}
 					value={"Add"}
 					className={style["form__button"]}
-                    onClick={(e) => {
-						addSkill(e);
+					onClick={() => {
+                        addSkill();
+
 					}}
 				/>
 			</form>
@@ -95,17 +113,15 @@ function EditProfile(props) {
 					name={"delete-interest"}
 					id={"delete-interest"}
 					className={style["form__select"]}
-                    onChange={(e) => {handleSelectChange(e, "SET_USER_SKILL")}}
+					onChange={(e) => {
+						handleSelectChange(e, "SET_USER_SKILL");
+					}}
 				>
 					{
 						//map skill options
 
 						skills.map((skill) => {
-							return (
-								<option value={skill["users-skills"]}>
-									{skill.name}
-								</option>
-							);
+							return <option value={skill["user-skill"]}>{skill.name}</option>;
 						})
 					}
 				</select>
@@ -113,25 +129,26 @@ function EditProfile(props) {
 					type={"button"}
 					value={"Delete"}
 					className={style["form__button"]}
-					onClick={(e) => deleteSkill()}
+					onClick={() => deleteSkill()}
 				/>
 			</form>
 
 			<form className={style["form"]}>
-				<label htmlFor={"add"} className={style["form__label"]}>
+				<label htmlFor={"edit-goal"} className={style["form__label"]}>
 					Edit Current Goal
 				</label>
-				<input
-					type={"textarea"}
+				<textarea
 					name={"edit-goal"}
-					id={"add-interest"}
+					id={"edit-goal"}
 					className={style["form__input-textarea"]}
+                    onChange = {(e)=>dispatch({type: "SET_GOAL", payload: e.target.value})}
 				/>
 				<input
 					type={"button"}
 					name={"edit-goal"}
 					value={"Edit"}
 					className={style["form__button"]}
+                    onClick ={()=> editGoal()}
 				/>
 			</form>
 
@@ -144,12 +161,14 @@ function EditProfile(props) {
 					name={"add-language"}
 					id={"add-language"}
 					className={style["form__input-text"]}
-				/>
+                    onChange = {(e)=>{dispatch({type: "SET_LANGUAGE", payload: e.target.value})}
+                    }/>
 				<input
 					type={"button"}
 					name={"add-language"}
 					value={"Add"}
 					className={style["form__button"]}
+                    onClick = {()=>	addLanguage()}
 				/>
 			</form>
 
@@ -158,23 +177,34 @@ function EditProfile(props) {
 					htmlFor={"edit-delete-language"}
 					className={style["form__label"]}
 				>
-					Edit or Delete an Interest{" "}
+					Delete A Preferred Language
 				</label>
-				<input
-					type={"text"}
-					name={"edit-delete-language"}
-					id={"edit-delete-language"}
-					className={style["form__input-text"]}
-				/>
-				<input
-					type={"button"}
-					value={"Edit"}
-					className={style["form__button"]}
-				/>
+				<select
+					name={"delete-language"}
+					id={"delete-language"}
+					className={style["form__select"]}
+					onChange={(e) => {
+						handleSelectChange(e, "SET_USER_LANGUAGE");
+					}}
+				>
+					{
+						//map skill options
+
+						languages.map((language) => {
+							return (
+								<option value={language["user-language"]}>
+									{language.name}
+								</option>
+							);
+						})
+					}
+				</select>
 				<input
 					type={"button"}
 					value={"Delete"}
 					className={style["form__button"]}
+					onClick={() => deleteLanguage()
+                }
 				/>
 			</form>
 		</div>

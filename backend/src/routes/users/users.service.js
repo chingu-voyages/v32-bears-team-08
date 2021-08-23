@@ -18,6 +18,8 @@ function update(data) {
             name: data.name,
             bio: data.bio,
             active: data.active,
+            goal: data.goal,
+            updated_at: knex.fn.now()
         });
 }
 
