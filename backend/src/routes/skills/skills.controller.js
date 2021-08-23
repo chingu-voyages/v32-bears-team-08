@@ -22,6 +22,16 @@ async function find(req, res, next) {
 	});
 }
 
+async function findUserSkills(req, res, next){
+	const {user} = req
+	const response = await service.findByUser({user: user.id})
+
+	return res.json({
+		data: response,
+	});
+	
+}
+
 async function create(req, res, next) {
 	const { user } = req;
 
@@ -34,13 +44,11 @@ async function create(req, res, next) {
 	//if skill doesn't exist, then insert skill and new users-skills into db
 	if (!findSkill[0]) {
 		const skill = await service.create(req.body.data);
-        console.log(skill)
 		const usersSkill = await usersSkillsService.create({
 			user: user.id,
 			skill: skill[0].id,
 		});
 
-        console.log(usersSkill)
 
 		return res.status(201).json({
 			data: { skill: skill[0], usersSkill: usersSkill[0] },
@@ -48,7 +56,7 @@ async function create(req, res, next) {
 	}
 	//check if user already has a relationship with the skill
 
-	const findUsersSkill = await usersSkillsService.findByUserAndSkill({
+	const findUsersSkill = await usersSkillsService.findOneByUserAndSkill({
 		user: user.id,
 		skill: findSkill[0].id,
 	});
@@ -93,5 +101,6 @@ function hasName(req, res, next) {
 module.exports = {
 	list: [asyncErrorBoundary(list)],
 	find: [hasData, asyncErrorBoundary(find)],
+	findUserSkills: [asyncErrorBoundary(findUserSkills)],
 	create: [hasData, hasName, asyncErrorBoundary(create)],
 };

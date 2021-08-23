@@ -22,28 +22,6 @@ async function find(req, res, next) {
 	});
 }
 
-async function findUserSkills(req, res, next) {
-	const response = await service.findByUser(req.params.user_id);
-
-	if (response[0]) {
-		const skills = await response.map(async (ele) => {
-			const skill = await skillsService.find(ele.skill);
-			return skill[0];
-		})
-
-		const data = await Promise.all(skills);
-
-		return res.json({
-			data: data,
-		});
-	}
-
-	next({
-		status: 404,
-		message: `user ${req.params.user_id} not found`,
-	});
-}
-
 async function create(req, res, next) {
 	const response = await service.create(req.body.data);
 	return res.status(201).json({
@@ -91,8 +69,6 @@ function hasSkill(req, res, next) {
 module.exports = {
 	list: [asyncErrorBoundary(list)],
 	find: [asyncErrorBoundary(find)],
-
-	findUserSkills: [asyncErrorBoundary(findUserSkills)],
 	create: [hasData, hasUser, hasSkill, asyncErrorBoundary(create)],
 	remove: [asyncErrorBoundary(remove)],
 };
