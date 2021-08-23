@@ -15,7 +15,21 @@ function find(languageId) {
         });
 }
 
+function findByName(languageName) {
+    return knex(table)
+        .select("*")
+        .where({
+            name: languageName
+        });
+}
+
+function create(data) {
+	return knex(table).insert(data, "*");
+}
+
 module.exports = {
     list,
     find,
+    findByName,
+    create,
 }
