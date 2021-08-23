@@ -34,31 +34,31 @@ async function create(req, res, next) {
 	//if skill doesn't exist, then insert skill and new users-skills into db
 	if (!findSkill[0]) {
 		const skill = await service.create(req.body.data);
-		const usersSkill = await usersSkillsService.create({
+		const userSkill = await usersSkillsService.create({
 			user: user.id,
 			skill: skill[0].id,
 		});
 
 
 		return res.status(201).json({
-			data: { skill: skill[0], usersSkill: usersSkill[0] },
+			data: { skill: skill[0], userSkill: userSkill[0] },
 		});
 	}
 	//check if user already has a relationship with the skill
 
-	const findUsersSkill = await usersSkillsService.findOneByUserAndSkill({
+	const findUserSkill = await usersSkillsService.findOneByUserAndSkill({
 		user: user.id,
 		skill: findSkill[0].id,
 	});
     // if user doesn't have skill insert new users-skills into the db
 
-	if (!findUsersSkill[0]) {
-		const usersSkill = await usersSkillsService.create({
+	if (!findUserSkill[0]) {
+		const userSkill = await usersSkillsService.create({
 			user: user.id,
 			skill: findSkill[0].id,
 		});
 		return res.status(201).json({
-			data: { skill: findSkill[0], usersSkill: usersSkill[0] },
+			data: { skill: findSkill[0], userSkill: userSkill[0] },
 		});
 	} else {
 		return next({
