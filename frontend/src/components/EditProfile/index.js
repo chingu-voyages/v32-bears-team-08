@@ -5,10 +5,10 @@ import style from "./style.module.css";
 
 const initialState = {
 	input_skill: "",
-	"selected_skill": "",
+	selected_skill: "",
 	input_goal: "",
 	input_language: "",
-	"selected_language": "",
+	selected_language: "",
 };
 
 function reducer(state, action) {
@@ -83,41 +83,49 @@ function EditProfile() {
 	function deleteLanguage() {
 		editProfile
 			.deleteUserLanguage(state.selected_language)
-			.then(res=>{
-				const filteredLanguages = languages.filter(language=>{
-					return language.id !== res.data.language
-				})
-				appDispatch({type: "SET_PROFILE_LANGUAGES", payload: filteredLanguages})
-
+			.then((res) => {
+				const filteredLanguages = languages.filter((language) => {
+					return language.id !== res.data.language;
+				});
+				appDispatch({
+					type: "SET_PROFILE_LANGUAGES",
+					payload: filteredLanguages,
+				});
 			})
 			.catch((err) => handleError(err));
 	}
 
 	function deleteSkill() {
 		editProfile
-			.deleteUserSkill(state.selected_skill).then(res=>{
-					const filteredSkills = skills.filter(skill=>{
-						return skill.id !== res.data.skill
-					})
-				appDispatch({type: "SET_PROFILE_SKILLS", payload: filteredSkills})
+			.deleteUserSkill(state.selected_skill)
+			.then((res) => {
+				const filteredSkills = skills.filter((skill) => {
+					return skill.id !== res.data.skill;
+				});
+				appDispatch({ type: "SET_PROFILE_SKILLS", payload: filteredSkills });
 			})
 			.catch((err) => handleError(err));
 	}
 
 	function editGoal() {
-		editProfile.putGoal({
-			userId: appState.user.id,
-			goal: state.input_goal,
-		}).then(res=>{
-			appDispatch({type: "SET_PROFILE_GOAL", payload: res.data.goal})
-
-		}).catch((err) => handleError(err))
+		editProfile
+			.putGoal({
+				userId: appState.user.id,
+				goal: state.input_goal,
+			})
+			.then((res) => {
+				appDispatch({ type: "SET_PROFILE_GOAL", payload: res.data.goal });
+			})
+			.catch((err) => handleError(err));
 	}
 
 	return (
 		<div className={style["edit-profile"]}>
+			<div className={style["title"]}>Edit Your Profile</div>
 			<form className={style["form"]}>
-				<label htmlFor={"add"}>Add an Interest</label>
+				<label htmlFor={"add"} className={style["form__label"]}>
+					Add an Interest:
+				</label>
 				<input
 					type={"text"}
 					name={"add-interest"}
@@ -143,7 +151,7 @@ function EditProfile() {
 					htmlFor={"edit-delete-interest"}
 					className={style["form__label"]}
 				>
-					Delete an Interest{" "}
+					Delete an Interest:{" "}
 				</label>
 				<select
 					name={"delete-interest"}
@@ -171,7 +179,7 @@ function EditProfile() {
 
 			<form className={style["form"]}>
 				<label htmlFor={"edit-goal"} className={style["form__label"]}>
-					Edit Current Goal
+					Edit Current Goal:
 				</label>
 				<textarea
 					name={"edit-goal"}
@@ -194,7 +202,7 @@ function EditProfile() {
 
 			<form className={style["form"]}>
 				<label htmlFor={"add"} className={style["form__label"]}>
-					Add a Preferred Language
+					Add a Preferred Language:
 				</label>
 				<input
 					type={"text"}
@@ -210,7 +218,6 @@ function EditProfile() {
 					name={"add-language"}
 					value={"Add"}
 					className={style["form__button"]}
-			
 					onClick={() => addLanguage()}
 				/>
 			</form>
@@ -220,7 +227,7 @@ function EditProfile() {
 					htmlFor={"edit-delete-language"}
 					className={style["form__label"]}
 				>
-					Delete A Preferred Language
+					Delete A Preferred Language:
 				</label>
 				<select
 					name={"delete-language"}
@@ -234,11 +241,7 @@ function EditProfile() {
 						//map skill options
 
 						languages.map((language) => {
-							return (
-								<option value={language.id}>
-									{language.name}
-								</option>
-							);
+							return <option value={language.id}>{language.name}</option>;
 						})
 					}
 				</select>
