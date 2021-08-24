@@ -1,6 +1,5 @@
 import React, { useContext, useReducer } from "react";
 import { userContext } from "../../App";
-import useProfileApi from "../../hooks/useProfileApi";
 import editProfile from "../../services/edit-profile";
 import style from "./style.module.css";
 
@@ -44,38 +43,55 @@ function reducer(state, action) {
 	}
 }
 
-function EditProfile(props) {
-	const { appState, appStateDispatch } = useContext(userContext);
+function EditProfile() {
+	const { appState, appDispatch } = useContext(userContext);
 	const [state, dispatch] = useReducer(reducer, initialState);
-	const { skills, goal, languages } = props;
+	const { skills, goal, languages } = appState.profile;
 
 	function handleSelectChange(e, type) {
 		dispatch({ type, payload: e.target.value });
 	}
 
-    function handleError(err){
-        dispatch({type: "SET_ERROR", payload: err})
-    }
+	function handleError(err) {
+		dispatch({ type: "SET_ERROR", payload: err });
+	}
 
-    function addSkill(){
-        editProfile.postSkill(state.input_skill).catch(err=>handleError(err))
-    }
+	function addSkill() {
+		editProfile
+			.postSkill(state.input_skill)
+			.then((res) =>
+				appDispatch({
+					type: "SET_PROFILE_SKILLS",
+					payload: skills.concat(res.data),
+				})
+			)
+			.catch((err) => handleError(err));
+	}
 
-    function addLanguage(){
-        editProfile.postLanguage(state.input_language).catch(err=>handleError(err))
-    }
+	function addLanguage() {
+		editProfile
+			.postLanguage(state.input_language)
+			.catch((err) => handleError(err));
+	}
 
-    function deleteLanguage(){
-        editProfile.deleteUserLanguage(state["user-language"]).catch(err=>handleError(err))
-    }
+	function deleteLanguage() {
+		editProfile
+			.deleteUserLanguage(state["user-language"])
+			.catch((err) => handleError(err));
+	}
 
-    function deleteSkill(){
-        editProfile.deleteUserSkill(state["user-skill"]).catch(err=>handleError(err))
-    }
+	function deleteSkill() {
+		editProfile
+			.deleteUserSkill(state["user-skill"])
+			.catch((err) => handleError(err));
+	}
 
-    function editGoal(){
-        editProfile.putGoal({userId:appState.user.id, goal:state['input_goal']})
-    }
+	function editGoal() {
+		editProfile.putGoal({
+			userId: appState.user.id,
+			goal: state["input_goal"],
+		});
+	}
 
 	return (
 		<div className={style["edit-profile"]}>
@@ -96,8 +112,7 @@ function EditProfile(props) {
 					value={"Add"}
 					className={style["form__button"]}
 					onClick={() => {
-                        addSkill();
-
+						addSkill();
 					}}
 				/>
 			</form>
@@ -141,14 +156,18 @@ function EditProfile(props) {
 					name={"edit-goal"}
 					id={"edit-goal"}
 					className={style["form__input-textarea"]}
-                    onChange = {(e)=>dispatch({type: "SET_GOAL", payload: e.target.value})}
-				/>
+					onChange={(e) =>
+						dispatch({ type: "SET_GOAL", payload: e.target.value })
+					}
+				>
+					{goal}
+				</textarea>
 				<input
 					type={"button"}
 					name={"edit-goal"}
 					value={"Edit"}
 					className={style["form__button"]}
-                    onClick ={()=> editGoal()}
+					onClick={() => editGoal()}
 				/>
 			</form>
 
@@ -161,14 +180,16 @@ function EditProfile(props) {
 					name={"add-language"}
 					id={"add-language"}
 					className={style["form__input-text"]}
-                    onChange = {(e)=>{dispatch({type: "SET_LANGUAGE", payload: e.target.value})}
-                    }/>
+					onChange={(e) => {
+						dispatch({ type: "SET_LANGUAGE", payload: e.target.value });
+					}}
+				/>
 				<input
 					type={"button"}
 					name={"add-language"}
 					value={"Add"}
 					className={style["form__button"]}
-                    onClick = {()=>	addLanguage()}
+					onClick={() => addLanguage()}
 				/>
 			</form>
 
@@ -203,8 +224,7 @@ function EditProfile(props) {
 					type={"button"}
 					value={"Delete"}
 					className={style["form__button"]}
-					onClick={() => deleteLanguage()
-                }
+					onClick={() => deleteLanguage()}
 				/>
 			</form>
 		</div>
