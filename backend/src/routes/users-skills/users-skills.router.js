@@ -8,6 +8,7 @@ router
 	.all(loginController.requireAuth)
 	.get(controller.list)
 	.post(controller.create)
+	.delete(controller.removeBySkill)
 	.all(methodNotAllowed);
 
 router

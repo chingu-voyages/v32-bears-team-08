@@ -38,6 +38,12 @@ function remove(userLanguageId) {
 	return knex(table).where({ id: userLanguageId }).del();
 }
 
+function removeByLanguage(data){
+	return knex(table).where({ language: data.language }).where({user: data.user}).del().returning('*');
+
+}
+
+
 module.exports = {
 	list,
 	find,
@@ -45,4 +51,5 @@ module.exports = {
     findOneByUserandLanguage,
 	create,
 	remove,
+	removeByLanguage
 };

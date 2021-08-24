@@ -20,7 +20,7 @@ function update(data) {
             active: data.active,
             goal: data.goal,
             updated_at: knex.fn.now()
-        });
+        }).returning('*')
 }
 
 function remove(userId) {

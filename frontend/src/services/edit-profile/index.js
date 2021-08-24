@@ -26,10 +26,13 @@ export async function postSkill(name) {
   }
 
 
-  export async function deleteUserSkill(userSkill) {
+  export async function deleteUserSkill(skill) {
 
-    let response = await fetch(`${config.API_ENDPOINT}/users-skills/${userSkill}`, {
+    let response = await fetch(`${config.API_ENDPOINT}/users-skills/`, {
       method: "DELETE",
+      body: JSON.stringify({
+        data: {skill},
+      }), 
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${getAuthToken()}`,
@@ -71,10 +74,13 @@ export async function postSkill(name) {
   }
 
 
-  export async function deleteUserLanguage(userLanguage) {
+  export async function deleteUserLanguage(language) {
 
-    let response = await fetch(`${config.API_ENDPOINT}/users-languages/${userLanguage}`, {
+    let response = await fetch(`${config.API_ENDPOINT}/users-languages`, {
       method: "DELETE",
+      body: JSON.stringify({
+        data: {language},
+      }), 
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${getAuthToken()}`,

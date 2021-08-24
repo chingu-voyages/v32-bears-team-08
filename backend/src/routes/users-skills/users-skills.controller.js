@@ -41,7 +41,19 @@ async function create(req, res, next) {
 }
 
 async function remove(req, res, next) {
+	
 	const response = await service.remove(req.params.user_skill_id);
+	return res.json({
+		data: response[0],
+	});
+}
+
+async function removeBySkill (req, res, next) {
+	const {user} = req
+	const {skill} = req.body.data
+	const data = {user: user.id, skill}
+
+	const response = await service.removeBySkill(data);
 	return res.json({
 		data: response[0],
 	});
@@ -83,4 +95,5 @@ module.exports = {
 	findByUser : [asyncErrorBoundary(findByUser)],
 	create: [hasData, hasUser, hasSkill, asyncErrorBoundary(create)],
 	remove: [asyncErrorBoundary(remove)],
+	removeBySkill : [hasData, hasSkill, asyncErrorBoundary(removeBySkill)],
 };

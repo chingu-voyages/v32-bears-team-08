@@ -5,10 +5,10 @@ import style from "./style.module.css";
 
 const initialState = {
 	input_skill: "",
-	"user-skill": "",
+	"selected_skill": "",
 	input_goal: "",
 	input_language: "",
-	"user-language": "",
+	"selected_language": "",
 };
 
 function reducer(state, action) {
@@ -18,8 +18,8 @@ function reducer(state, action) {
 				...state,
 				input_skill: action.payload,
 			};
-		case "SET_USER_SKILL":
-			return { ...state, "user-skill": action.payload };
+		case "SET_SELECTED_SKILL":
+			return { ...state, selected_skill: action.payload };
 
 		case "SET_GOAL":
 			return {
@@ -31,8 +31,8 @@ function reducer(state, action) {
 				...state,
 				input_language: action.payload,
 			};
-		case "SET_USER_LANGUAGE":
-			return { ...state, "user-language": action.payload };
+		case "SET_SELECTED_LANGUAGE":
+			return { ...state, selected_language: action.payload };
 		case "SET_ERROR":
 			return {
 				...state,
@@ -82,21 +82,36 @@ function EditProfile() {
 
 	function deleteLanguage() {
 		editProfile
-			.deleteUserLanguage(state["user-language"])
+			.deleteUserLanguage(state.selected_language)
+			.then(res=>{
+				const filteredLanguages = languages.filter(language=>{
+					return language.id !== res.data.language
+				})
+				appDispatch({type: "SET_PROFILE_LANGUAGES", payload: filteredLanguages})
+
+			})
 			.catch((err) => handleError(err));
 	}
 
 	function deleteSkill() {
 		editProfile
-			.deleteUserSkill(state["user-skill"])
+			.deleteUserSkill(state.selected_skill).then(res=>{
+					const filteredSkills = skills.filter(skill=>{
+						return skill.id !== res.data.skill
+					})
+				appDispatch({type: "SET_PROFILE_SKILLS", payload: filteredSkills})
+			})
 			.catch((err) => handleError(err));
 	}
 
 	function editGoal() {
 		editProfile.putGoal({
 			userId: appState.user.id,
-			goal: state["input_goal"],
-		});
+			goal: state.input_goal,
+		}).then(res=>{
+			appDispatch({type: "SET_PROFILE_GOAL", payload: res.data.goal})
+
+		}).catch((err) => handleError(err))
 	}
 
 	return (
@@ -135,14 +150,14 @@ function EditProfile() {
 					id={"delete-interest"}
 					className={style["form__select"]}
 					onChange={(e) => {
-						handleSelectChange(e, "SET_USER_SKILL");
+						handleSelectChange(e, "SET_SELECTED_SKILL");
 					}}
 				>
 					{
 						//map skill options
 
 						skills.map((skill) => {
-							return <option value={skill["user-skill"]}>{skill.name}</option>;
+							return <option value={skill.id}>{skill.name}</option>;
 						})
 					}
 				</select>
@@ -212,7 +227,7 @@ function EditProfile() {
 					id={"delete-language"}
 					className={style["form__select"]}
 					onChange={(e) => {
-						handleSelectChange(e, "SET_USER_LANGUAGE");
+						handleSelectChange(e, "SET_SELECTED_LANGUAGE");
 					}}
 				>
 					{
@@ -220,7 +235,7 @@ function EditProfile() {
 
 						languages.map((language) => {
 							return (
-								<option value={language["user-language"]}>
+								<option value={language.id}>
 									{language.name}
 								</option>
 							);

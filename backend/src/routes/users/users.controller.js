@@ -17,8 +17,9 @@ async function find(req, res, next) {
 async function update(req, res, next) {
     
     const response = await service.update(req.body.data);
+    const {password, ...responseWithoutPassword} = response[0]
     return res.json({
-        data: response[0],
+        data: responseWithoutPassword
     })
 }
 

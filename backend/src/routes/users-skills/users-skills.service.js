@@ -38,6 +38,11 @@ function remove(userSkillId) {
 	return knex(table).where({ id: userSkillId }).del();
 }
 
+function removeBySkill(data){
+	return knex(table).where({ skill: data.skill }).where({user: data.user}).del().returning('*');
+
+}
+
 module.exports = {
 	list,
 	find,
@@ -45,4 +50,5 @@ module.exports = {
 	findOneByUserAndSkill,
 	create,
 	remove,
+	removeBySkill
 };

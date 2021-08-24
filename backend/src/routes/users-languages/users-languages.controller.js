@@ -43,6 +43,17 @@ async function remove(req, res, next) {
 	});
 }
 
+async function removeByLanguage (req, res, next) {
+	const {user} = req
+	const {language} = req.body.data
+	const data = {user: user.id, language }
+
+	const response = await service.removeByLanguage(data);
+	return res.json({
+		data: response[0],
+	});
+}
+
 function hasData(req, res, next) {
 	if (req.body.data) {
 		return next();
@@ -93,4 +104,5 @@ module.exports = {
 		asyncErrorBoundary(create),
 	],
 	remove: [asyncErrorBoundary(remove)],
+	removeByLanguage: [hasData, hasLanguage, asyncErrorBoundary(removeByLanguage)]
 };
