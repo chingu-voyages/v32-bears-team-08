@@ -23,6 +23,17 @@ function findByName(languageName) {
         });
 }
 
+function findByUser(userId) {
+	return knex(table)
+		.join("users-languages", "users-languages.language", "=", `${table}.id`)
+		.select(
+			"languages.*",
+		)
+		.where({
+			user: userId,
+		});
+}
+
 function create(data) {
 	return knex(table).insert(data, "*");
 }
@@ -31,5 +42,6 @@ module.exports = {
     list,
     find,
     findByName,
+    findByUser,
     create,
 }

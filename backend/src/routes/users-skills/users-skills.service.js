@@ -14,13 +14,10 @@ function find(userSkillId) {
 
 function findByUser(userId) {
 	return knex(table)
-		.join("skills", "skills.id", "=", `${table}.skill`)
 		.select(
-			"skills.name",
-			`${table}.skill`,
-			`${table}.user`,
-			`${table}.id as user-skill`
+			`${table}.*`,
 		)
+		.join("skills", "skills.id", "=", `${table}.skill`)
 		.where({
 			user: userId,
 		});

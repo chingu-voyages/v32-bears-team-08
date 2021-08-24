@@ -16,4 +16,10 @@ router
 	.get(controller.find)
 	.all(methodNotAllowed);
 
+router
+	.route("/user/:user_id")
+	.all(loginController.requireAuth)
+	.get(controller.findByUser)
+	.all(methodNotAllowed);
+
 module.exports = router;

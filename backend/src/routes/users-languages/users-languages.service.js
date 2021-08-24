@@ -16,10 +16,7 @@ function findByUser(userId) {
 	return knex(table)
 		.join("languages", "languages.id", "=", `${table}.language`)
 		.select(
-			"languages.name",
-			`${table}.language`,
-			`${table}.user`,
-			`${table}.id as user-language`
+			`${table}.*`,
 		)
 		.where({
 			user: userId,

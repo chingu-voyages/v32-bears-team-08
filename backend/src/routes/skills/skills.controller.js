@@ -22,6 +22,17 @@ async function find(req, res, next) {
 	});
 }
 
+async function findByUser(req, res, next){
+	const id = req.params.user_id
+
+	const response = await service.findByUser(id)
+
+	return res.json({
+		data: response,
+	});
+	
+}
+
 async function create(req, res, next) {
 	const { user } = req;
 
@@ -37,7 +48,7 @@ async function create(req, res, next) {
 
 
 		return res.status(201).json({
-			data: { skill: skill[0], userSkill: userSkill[0] },
+			data: skill,
 		});
 	}
 	//check if user already has a relationship with the skill
@@ -54,7 +65,7 @@ async function create(req, res, next) {
 			skill: findSkill[0].id,
 		});
 		return res.status(201).json({
-			data: { skill: findSkill[0], userSkill: userSkill[0] },
+			data:  findSkill ,
 		});
 	} else {
 		return next({
@@ -87,5 +98,6 @@ function hasName(req, res, next) {
 module.exports = {
 	list: [asyncErrorBoundary(list)],
 	find: [hasData, asyncErrorBoundary(find)],
+	findByUser: [asyncErrorBoundary(findByUser)],
 	create: [hasData, hasName, asyncErrorBoundary(create)],
 };

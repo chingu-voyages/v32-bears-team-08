@@ -22,6 +22,14 @@ async function find(req, res, next) {
     })
 }
 
+async function findUserLanguages(req, res, next) {
+	const response = await service.findByUser(req.params.user_id);
+
+	return res.json({
+		data: response,
+	});
+}
+
 async function create(req, res, next) {
 	const { user } = req;
     const {data} = req.body
@@ -41,7 +49,7 @@ async function create(req, res, next) {
 		});
 
 		return res.status(201).json({
-			data: { language: language[0], userLanguage: userLanguage[0] },
+			data: language[0],
 		});
 	}
 
@@ -60,7 +68,7 @@ async function create(req, res, next) {
 		});
 
 		return res.status(201).json({
-			data: { language: findLanguage[0], userLanguage: userLanguage[0] },
+			data: findLanguage
 		});
 	} else {
 		return next({
@@ -99,6 +107,7 @@ module.exports = {
         asyncErrorBoundary(find),
     ],
 
+    findUserLanguages: [asyncErrorBoundary(findUserLanguages)],
     create: [
         hasData, hasName, asyncErrorBoundary(create)
     ]
