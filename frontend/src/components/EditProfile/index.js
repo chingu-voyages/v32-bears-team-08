@@ -71,6 +71,12 @@ function EditProfile() {
 	function addLanguage() {
 		editProfile
 			.postLanguage(state.input_language)
+			.then((res) => {
+				appDispatch({
+					type: "SET_PROFILE_LANGUAGES",
+					payload: languages.concat(res.data),
+				});
+			})
 			.catch((err) => handleError(err));
 	}
 
@@ -189,6 +195,7 @@ function EditProfile() {
 					name={"add-language"}
 					value={"Add"}
 					className={style["form__button"]}
+			
 					onClick={() => addLanguage()}
 				/>
 			</form>
