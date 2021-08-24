@@ -21,7 +21,7 @@ async function create(req, res, next) {
             id: response[0].id,
             name: response[0].name,
             email: response[0].email,
-            authToken: createJWT(response[0].email, { id: response[0].id }),
+            authToken: await createJWT(response[0].email, { id: response[0].id, name: response[0].name }),
         });
     }
     next({
