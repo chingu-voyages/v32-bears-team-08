@@ -55,9 +55,10 @@ function Login() {
 		*/
 
 		try {
-			let res = await authServices.postLogin(data);
+			let res = await authServices.postLogin(data)
 			authServices.saveAuthToken(res.authToken);
 			const decoded = authServices.decodeToken(res.authToken);
+			authServices.refreshTokenBeforeExpiry(decoded)
 			appDispatch({ type: "SET_USER", payload: decoded });
 			appDispatch({ type: "SET_AUTH", payload: true });
 		} catch (error) {

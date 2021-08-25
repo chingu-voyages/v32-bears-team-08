@@ -1,6 +1,8 @@
 import config from "../../config";
 import jwt_decode from "jwt-decode";
 
+let _timeOutId
+
 export async function postRegister(data) {
   const { name, email, password, confirmPassword } = data;
   let response = await fetch(`${config.API_ENDPOINT}/registration`, {
@@ -63,6 +65,13 @@ export async function postRefreshToken() {
   if (!response.ok) {
     return Promise.reject({ message: json.error });
   }
+  
+  //set setTimeOut call for refresh token
+
+  const {authToken} = json
+  saveAuthToken(authToken)
+  const token = decodeToken(authToken)
+  refreshTokenBeforeExpiry(token)
 
   return json;
 }
@@ -87,14 +96,27 @@ export function decodeToken(token) {
   return jwt_decode(token);
 }
 
+export function refreshTokenBeforeExpiry(token){
+  const msBeforeExpiry = token.exp * 1000 - Date.now()
+  
+  _timeOutId = setTimeout(postRefreshToken, msBeforeExpiry - 10000 )
+}
+
+export function clearRefreshTokenBeforeExpiry(){
+  clearTimeout(_timeOutId)
+}
+
 const authServices = {
   postLogin,
   postRegister,
+  postRefreshToken,
   getAuthToken,
   saveAuthToken,
   clearAuthToken,
   hasAuthToken,
   decodeToken,
+  refreshTokenBeforeExpiry, 
+  clearRefreshTokenBeforeExpiry,
 };
 
 export default authServices;
