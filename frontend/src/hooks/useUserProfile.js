@@ -24,7 +24,6 @@ function useUserProfile(userId, dispatch){
         } 
         catch (error){
             setError(true)
-            throw error
         }
 
         setLoading(false)

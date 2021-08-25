@@ -8,7 +8,8 @@ import style from "./style.module.css";
 function Profile() {
 	//set state
 	const { appState, appDispatch } = useContext(userContext);
-	const [error, loading] = useUserProfile(appState.user.id, appDispatch);
+	const userId = appState.user? appState.user.id : null
+	const [error, loading] = useUserProfile(userId, appDispatch);
     const [edit, setEdit] = useState(false)
 
 
