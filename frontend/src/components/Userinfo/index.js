@@ -9,7 +9,12 @@ const Userinfo = ({ initials, skilltags }) => {
       </div>
       <div className={styles["skills"]}>
         {skilltags.map((skill) => {
-          return <div className={styles["skill"]}> {skill} </div>;
+          return (
+            <div key={skill} className={styles["skill"]}>
+              {" "}
+              {skill}{" "}
+            </div>
+          );
         })}
       </div>
     </div>

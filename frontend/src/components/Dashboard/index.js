@@ -15,18 +15,7 @@ function Dashboard(props) {
         <Userinfo initials="SR" skilltags={["moonwalking"]} />
         <Userinfo initials="ZW" skilltags={[]} />
       </div>
-      <div className={styles["dashboard-right"]}>
-        <div>
-          <button type="button" className={styles["dashboard-button"]}>
-            Current Partners
-          </button>
-        </div>
-        <div>
-          <button type="button" className={styles["dashboard-button"]}>
-            Find Partners
-          </button>
-        </div>
-      </div>
+      <div className={styles["dashboard-right"]}></div>
     </div>
   );
 }
