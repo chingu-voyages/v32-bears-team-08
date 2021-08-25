@@ -1,5 +1,5 @@
 const service = require("./users.service");
-const asyncErrorBoundary = require("../../errors/asyncErrorBoundary");
+const asyncErrorBoundary = require("../../errors/asyncErrorBoundary")
 
 async function find(req, res, next) {
     const response = await service.find(req.params.user_id);
@@ -12,6 +12,10 @@ async function find(req, res, next) {
         status: 404,
         message: `user ${req.params.user_id} not found`,
     })
+}
+
+async function recommended(req, res, next){
+    
 }
 
 async function update(req, res, next) {

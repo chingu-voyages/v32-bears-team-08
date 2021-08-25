@@ -29,6 +29,9 @@ function remove(userId) {
         .del();
 }
 
+function recommend(userId){
+return 
+}
 module.exports = {
     find,
     update,
