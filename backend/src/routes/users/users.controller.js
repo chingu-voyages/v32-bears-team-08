@@ -2,7 +2,7 @@ const service = require("./users.service");
 const asyncErrorBoundary = require("../../errors/asyncErrorBoundary");
 
 async function find(req, res, next) {
-    const response = await service.find(req.user.id);
+    const response = await service.find(req.params.user_id);
     if (response[0]) {
         return res.json({ 
             data: response[0],
@@ -17,8 +17,9 @@ async function find(req, res, next) {
 async function update(req, res, next) {
     
     const response = await service.update(req.body.data);
+    const {password, ...responseWithoutPassword} = response[0]
     return res.json({
-        data: response[0],
+        data: responseWithoutPassword
     })
 }
 
@@ -41,7 +42,6 @@ function hasData(req, res, next) {
 
 module.exports = {
     find: [
-        hasData,
         asyncErrorBoundary(find),
     ],
     update: [

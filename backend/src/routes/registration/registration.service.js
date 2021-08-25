@@ -10,7 +10,6 @@ function find(email) {
 }
 
 function create(data) {
-    console.log(data.password)
     return knex(table)
         .insert(data, "*");
 }
