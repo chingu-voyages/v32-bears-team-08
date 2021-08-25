@@ -8,7 +8,7 @@ import style from "./style.module.css";
 function Profile() {
 	//set state
 	const { appState, appDispatch } = useContext(userContext);
-	const userId = appState.user? appState.user.id : null
+	const userId =  appState.currentProfileId 
 	const [error, loading] = useUserProfile(userId, appDispatch);
     const [edit, setEdit] = useState(false)
 
@@ -18,7 +18,7 @@ function Profile() {
 
         <div className ={style['wrapper']}>
 		{(!loading && !error && appState.profile) && <div className={style["profile"]}>
-            <div className = {style['username']}>{appState.user.name}</div>
+            <div className = {style['username']}>{appState.profile.name}</div>
 			<div className={style["skills"]}>
                 <div className = {style['label']}>Skills of Interest:</div>
 				{
@@ -58,7 +58,6 @@ function Profile() {
 				<button className={style["edit-profile__buttom"]} onClick ={()=>setEdit(prev=>!prev)}>Edit Profile</button>
 			</div>
 		</div>}
-
             {edit && <EditProfile/>}
         </div>
 		);
