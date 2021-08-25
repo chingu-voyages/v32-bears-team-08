@@ -1,13 +1,15 @@
-import React, { createContext, useReducer} from "react";
+import React, { createContext, useEffect, useReducer} from "react";
 import { BrowserRouter, Route } from "react-router-dom";
+import authServices from "./services/auth";
 import Landing from "./components/Landing";
 import Dashboard from "./components/Dashboard";
 import Profile from "./components/Profile";
 import "./App.css";
+import useRefreshTokenApi from "./hooks/useRefreshTokenApi";
 
 const initialState = {
-	user: null,
-	auth: false,
+	user: authServices.isTokenValid() ? authServices.decodeToken(authServices.getAuthToken()): null,
+	auth: authServices.isTokenValid() ? true: false,
 	profile: null,
 };
 
@@ -57,6 +59,7 @@ function reducer(state, action) {
 
 function App() {
 	const [state, dispatch] = useReducer(reducer, initialState);
+	useRefreshTokenApi(state.user)
 
 	return (
 		<BrowserRouter>

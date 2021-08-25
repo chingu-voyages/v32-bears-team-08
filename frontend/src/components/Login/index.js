@@ -58,7 +58,6 @@ function Login() {
 			let res = await authServices.postLogin(data)
 			authServices.saveAuthToken(res.authToken);
 			const decoded = authServices.decodeToken(res.authToken);
-			authServices.refreshTokenBeforeExpiry(decoded)
 			appDispatch({ type: "SET_USER", payload: decoded });
 			appDispatch({ type: "SET_AUTH", payload: true });
 		} catch (error) {
@@ -115,7 +114,7 @@ function Login() {
 					</form>
 				</div>
 			) : (
-				<Redirect to="/profile"></Redirect>
+				<Redirect to="/dashboard"></Redirect>
 			)}
 		</>
 	);
