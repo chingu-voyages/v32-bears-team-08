@@ -28,15 +28,23 @@ function remove(userId) {
 
 function recommend(userId) {
 	return knex(table)
-		.distinct(`${table}.*`)
-		.from({us1: "users-skills"})
-		.join({us2: "users-skills"}, "us1.skill", "=", "us2.skill")
-        .join(table, `${table}.id`, "=", "us2.user" )
-        .where("us1.user", userId).whereNot("us2.user", userId)
+		.distinct(
+			`${table}.id`,
+			`${table}.name`,
+			`${table}.email`,
+			`${table}.goal`,
+			`${table}.created_at`,
+			`${table}.updated_at`,
+		)
+		.from({ us1: "users-skills" })
+		.join({ us2: "users-skills" }, "us1.skill", "=", "us2.skill")
+		.join(table, `${table}.id`, "=", "us2.user")
+		.where("us1.user", userId)
+		.whereNot("us2.user", userId);
 }
 module.exports = {
 	find,
 	update,
 	remove,
-    recommend,
+	recommend,
 };
