@@ -11,4 +11,9 @@ router
   .delete(controller.remove)
   .all(methodNotAllowed);
 
+router
+  .route("/recommendations/:user_id")
+  .all(loginController.requireAuth)
+  .get(controller.recommend);
+
 module.exports = router;
