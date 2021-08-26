@@ -14,7 +14,18 @@ async function find(req, res, next) {
     })
 }
 
-async function recommended(req, res, next){
+async function recommend(req, res, next){
+
+    const response = await service.recommend(req.params.user_id);
+    if (response[0]) {
+        return res.json({ 
+            data: response,
+        });
+    }
+    next({
+        status: 404,
+        message: `No recommendations found`,
+    })
     
 }
 
@@ -48,6 +59,7 @@ module.exports = {
     find: [
         asyncErrorBoundary(find),
     ],
+    recommend: [asyncErrorBoundary(recommend)],
     update: [
         hasData,
         asyncErrorBoundary(update),
@@ -56,4 +68,5 @@ module.exports = {
         hasData,
         asyncErrorBoundary(remove),
     ],
+
 }
