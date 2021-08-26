@@ -10,7 +10,8 @@ import useRefreshTokenApi from "./hooks/useRefreshTokenApi";
 const initialState = {
 	user: authServices.isTokenValid() ? authServices.decodeToken(authServices.getAuthToken()): null,
 	auth: authServices.isTokenValid() ? true: false,
-	profile: null,
+	currentProfileId: authServices.isTokenValid() ? authServices.decodeToken(authServices.getAuthToken()).id : null,
+	profile: null
 };
 
 export const userContext = createContext(null);
@@ -26,6 +27,20 @@ function reducer(state, action) {
 			return {
 				...state,
 				auth: action.payload,
+			};
+		case  "SET_CURRENT_PROFILE_ID":
+			return {
+				...state,
+				currentProfileId: action.payload
+			};
+		
+		case "SET_PROFILE_NAME":
+			return {
+				...state,
+				profile: {
+					...state.profile,
+					name: action.payload
+				},
 			};
 		case "SET_PROFILE_SKILLS":
 			return {
