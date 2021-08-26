@@ -1,14 +1,21 @@
 import React, { createContext, useReducer } from "react";
 import { BrowserRouter, Route } from "react-router-dom";
+import authServices from "./services/auth";
 import Landing from "./components/Landing";
 import Dashboard from "./components/Dashboard";
 import Profile from "./components/Profile";
 import NavBar from "./components/NavBar";
 import "./App.css";
+import useRefreshTokenApi from "./hooks/useRefreshTokenApi";
 
 const initialState = {
-  user: null,
-  auth: false,
+  user: authServices.isTokenValid()
+    ? authServices.decodeToken(authServices.getAuthToken())
+    : null,
+  auth: authServices.isTokenValid() ? true : false,
+  currentProfileId: authServices.isTokenValid()
+    ? authServices.decodeToken(authServices.getAuthToken()).id
+    : null,
   profile: null,
 };
 
@@ -25,6 +32,20 @@ function reducer(state, action) {
       return {
         ...state,
         auth: action.payload,
+      };
+    case "SET_CURRENT_PROFILE_ID":
+      return {
+        ...state,
+        currentProfileId: action.payload,
+      };
+
+    case "SET_PROFILE_NAME":
+      return {
+        ...state,
+        profile: {
+          ...state.profile,
+          name: action.payload,
+        },
       };
     case "SET_PROFILE_SKILLS":
       return {
@@ -56,8 +77,9 @@ function reducer(state, action) {
   }
 }
 
-function App(props) {
+function App() {
   const [state, dispatch] = useReducer(reducer, initialState);
+  useRefreshTokenApi(state.user);
 
   return (
     <userContext.Provider value={{ appState: state, appDispatch: dispatch }}>
