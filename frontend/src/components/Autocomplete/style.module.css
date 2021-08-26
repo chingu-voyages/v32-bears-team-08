@@ -1,0 +1,24 @@
+.autocomplete{
+    display: flex;
+    flex-direction: column;
+}
+
+.list{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: .5rem;;
+    padding: 0;
+    margin: 0;
+}
+
+.list__item{
+    cursor: pointer;
+    font-size: var(--font-size-medium);
+    background: var(--color-bg-input);
+    color: var(--color-secondary);
+    padding: 1rem;
+    flex: 1 0 auto;
+    text-align: center;
+    list-style-type: none;
+}

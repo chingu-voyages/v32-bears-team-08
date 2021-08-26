@@ -1,5 +1,6 @@
 import React, { useContext, useReducer } from "react";
 import { userContext } from "../../App";
+import Autocomplete from "../Autocomplete"
 import editProfile from "../../services/edit-profile";
 import style from "./style.module.css";
 
@@ -131,10 +132,12 @@ function EditProfile() {
 					name={"add-interest"}
 					id={"add-interest"}
 					className={style["form__input-text"]}
+					value ={state.input_skill}
 					onChange={(e) => {
 						dispatch({ type: "SET_SKILL", payload: e.target.value });
 					}}
 				/>
+				<Autocomplete  dispatch = {dispatch} userInput = {state.input_skill}/>
 				<input
 					type={"button"}
 					name={"add-interest"}
