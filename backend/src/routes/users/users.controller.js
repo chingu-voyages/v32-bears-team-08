@@ -1,5 +1,5 @@
 const service = require("./users.service");
-const asyncErrorBoundary = require("../../errors/asyncErrorBoundary");
+const asyncErrorBoundary = require("../../errors/asyncErrorBoundary")
 
 async function find(req, res, next) {
     const response = await service.find(req.params.user_id);
@@ -12,6 +12,21 @@ async function find(req, res, next) {
         status: 404,
         message: `user ${req.params.user_id} not found`,
     })
+}
+
+async function recommend(req, res, next){
+
+    const response = await service.recommend(req.params.user_id);
+    if (response[0]) {
+        return res.json({ 
+            data: response,
+        });
+    }
+    next({
+        status: 404,
+        message: `No recommendations found`,
+    })
+    
 }
 
 async function update(req, res, next) {
@@ -44,6 +59,7 @@ module.exports = {
     find: [
         asyncErrorBoundary(find),
     ],
+    recommend: [asyncErrorBoundary(recommend)],
     update: [
         hasData,
         asyncErrorBoundary(update),
@@ -52,4 +68,5 @@ module.exports = {
         hasData,
         asyncErrorBoundary(remove),
     ],
+
 }
