@@ -83,8 +83,8 @@ function App() {
 
   return (
     <userContext.Provider value={{ appState: state, appDispatch: dispatch }}>
-      <NavBar />
       <BrowserRouter>
+        <NavBar />
         <Route exact={true} path="/" component={Landing}></Route>
         <Route path="/dashboard" component={Dashboard}></Route>
         <Route path="/profile" component={Profile}></Route>

@@ -1,0 +1,53 @@
+.navbar {
+  width: 100%;
+  background-color: var(--color-bg-input);
+}
+
+.title {
+  text-align: center;
+  padding: 1em;
+  width: 100%;
+  font-size: 1.2em;
+  font-weight: 100;
+}
+
+.menu {
+  display: flex;
+  justify-content: space-around;
+  max-width: 40%;
+  margin: auto;
+  padding-bottom: 1em;
+  font-size: 1.2em;
+}
+
+.menu a {
+  color: black;
+}
+
+.navbar-top {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.navbar-right {
+  position: absolute;
+  right: 5em;
+  font-size: 1.3em;
+  color: var(--color-secondary);
+  display: flex;
+  align-items: center;
+}
+
+.initials {
+  border-radius: 50%;
+  width: 2.1em;
+  height: 2.1em;
+  color: var(--color-bg-input);
+  font-size: large;
+  background-color: var(--color-bg-button);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 1em;
+}
