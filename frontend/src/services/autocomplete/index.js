@@ -1,8 +1,8 @@
 import config from "../../config";
 import {getAuthToken} from "../../services/auth"
 
-export async function getAllSkills() {
-    let response = await fetch(`${config.API_ENDPOINT}/skills/`, {
+export async function getSuggestions(suggestionType) {
+    let response = await fetch(`${config.API_ENDPOINT}/${suggestionType}/`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -20,8 +20,8 @@ export async function getAllSkills() {
     return json;
   }
 
-  export const appServices ={
-      getAllSkills
+  export const autocompleteServices ={
+      getSuggestions
   }
 
-  export default appServices
+  export default autocompleteServices

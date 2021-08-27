@@ -15,8 +15,8 @@
 .list__item{
     cursor: pointer;
     font-size: var(--font-size-medium);
-    background: var(--color-bg-input);
-    color: var(--color-secondary);
+    background: var(--color-bg-landing);
+    color: var(--color-outline-input);
     padding: 1rem;
     flex: 1 0 auto;
     text-align: center;
