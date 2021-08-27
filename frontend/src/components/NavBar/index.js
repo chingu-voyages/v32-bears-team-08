@@ -9,6 +9,7 @@ function NavBar() {
   const { appState } = useContext(userContext);
   const name = appState.profile ? appState.profile.name : null;
   const initials = name ? name.toUpperCase().substring(0, 2) : null;
+  console.log(appState);
 
   return location.pathname === "/" ? (
     <div></div>
