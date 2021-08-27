@@ -1,0 +1,16 @@
+.dashboard {
+  display: flex;
+  justify-content: space-around;
+}
+
+.dashboard-left {
+}
+
+.dashboard-right {
+  display: flex;
+  justify-content: space-around;
+}
+
+.dashboard-right > div {
+  padding: 2em;
+}
