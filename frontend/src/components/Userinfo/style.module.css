@@ -7,8 +7,9 @@
 
 .initials {
   border-radius: 50%;
-  width: 3em;
-  height: 3em;
+  min-width: 3em;
+  min-height: 3em;
+  max-height: 3em;
   color: var(--color-primary);
   font-size: large;
   background-color: var(--color-bg-input);
@@ -26,7 +27,6 @@
 .skill {
   background-color: var(--color-bg-input);
   color: var(--color-secondary);
-  height: 1.5em;
   margin: 0.2em;
   padding: 0.2em;
   font-size: 1.5em;

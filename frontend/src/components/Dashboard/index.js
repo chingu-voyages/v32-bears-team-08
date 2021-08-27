@@ -13,16 +13,21 @@ function Dashboard(props) {
   useEffect(() => {
     (async () => {
       const users = await getRecommendedUsers(id);
-      console.log(users);
-      setRecommendedUsers(users.data.map((user) => user.id));
+      setRecommendedUsers(
+        users.data.map((user) => ({
+          initials: user.name.toUpperCase().substring(0, 2),
+          skilltags: user.skills.map((skill) => skill.name),
+          key: user.name,
+        }))
+      );
     })();
   }, [id]);
 
   return (
     <div className={`container ${styles["dashboard"]}`}>
       <div className={styles["dashboard-left"]}>
-        {recommendedUsers.map((userId) => (
-          <Userinfo initials="AB" skilltags={["piano", "singing"]} />
+        {recommendedUsers.map((user) => (
+          <Userinfo {...user} />
         ))}
       </div>
       <div className={styles["dashboard-right"]}></div>

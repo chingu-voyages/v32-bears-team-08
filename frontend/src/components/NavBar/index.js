@@ -7,9 +7,9 @@ import { useLocation } from "react-router-dom";
 function NavBar() {
   const location = useLocation();
   const { appState } = useContext(userContext);
-  const name = appState.profile ? appState.profile.name : null;
+  let name = appState.profile ? appState.profile.name : null;
+  name = name === null && appState.user ? appState.user.sub : name;
   const initials = name ? name.toUpperCase().substring(0, 2) : null;
-  console.log(appState);
 
   return location.pathname === "/" ? (
     <div></div>
