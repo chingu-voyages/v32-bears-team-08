@@ -141,7 +141,7 @@ function Register() {
 					</form>
 				</div>
 			) : (
-				<Redirect to={"/profile"}></Redirect>
+				<Redirect to={"/onboard"}></Redirect>
 			)}
 		</>
 	);
