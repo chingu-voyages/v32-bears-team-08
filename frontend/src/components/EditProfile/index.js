@@ -1,5 +1,6 @@
 import React, { useContext, useReducer } from "react";
 import { userContext } from "../../App";
+import Autocomplete from "../Autocomplete"
 import editProfile from "../../services/edit-profile";
 import style from "./style.module.css";
 
@@ -13,7 +14,7 @@ const initialState = {
 
 function reducer(state, action) {
 	switch (action.type) {
-		case "SET_SKILL":
+		case "SET_INPUT_SKILL":
 			return {
 				...state,
 				input_skill: action.payload,
@@ -21,12 +22,12 @@ function reducer(state, action) {
 		case "SET_SELECTED_SKILL":
 			return { ...state, selected_skill: action.payload };
 
-		case "SET_GOAL":
+		case "SET_INPUT_GOAL":
 			return {
 				...state,
 				input_goal: action.payload,
 			};
-		case "SET_LANGUAGE":
+		case "SET_INPUT_LANGUAGE":
 			return {
 				...state,
 				input_language: action.payload,
@@ -60,11 +61,13 @@ function EditProfile() {
 		editProfile
 			.postSkill(state.input_skill)
 			.then((res) =>
+				{
 				appDispatch({
 					type: "SET_PROFILE_SKILLS",
 					payload: skills.concat(res.data),
 				})
-			)
+				dispatch({ type: "SET_INPUT_SKILL", payload: ""});
+				})
 			.catch((err) => handleError(err));
 	}
 
@@ -76,33 +79,52 @@ function EditProfile() {
 					type: "SET_PROFILE_LANGUAGES",
 					payload: languages.concat(res.data),
 				});
+				dispatch({ type: "SET_INPUT_LANGUAGE", payload: ""});
+
+				
 			})
 			.catch((err) => handleError(err));
 	}
 
 	function deleteLanguage() {
+		if (state.selected_language === 'select') return
+
 		editProfile
 			.deleteUserLanguage(state.selected_language)
 			.then((res) => {
 				const filteredLanguages = languages.filter((language) => {
 					return language.id !== res.data.language;
 				});
+
+			return filteredLanguages
+				
+			}).then(filteredLanguages=>{
+				
+			
 				appDispatch({
 					type: "SET_PROFILE_LANGUAGES",
 					payload: filteredLanguages,
 				});
+				dispatch({ type: "SET_SELECTED_LANGUAGE", payload: "select"});
+
 			})
 			.catch((err) => handleError(err));
 	}
 
 	function deleteSkill() {
+		if (state.selected_skill === 'select') return
+
 		editProfile
 			.deleteUserSkill(state.selected_skill)
 			.then((res) => {
 				const filteredSkills = skills.filter((skill) => {
 					return skill.id !== res.data.skill;
 				});
+				return filteredSkills
+				
+			}).then(filteredSkills=>{
 				appDispatch({ type: "SET_PROFILE_SKILLS", payload: filteredSkills });
+				dispatch({ type: "SET_SELECTED_SKILL", payload: "select"});
 			})
 			.catch((err) => handleError(err));
 	}
@@ -115,6 +137,8 @@ function EditProfile() {
 			})
 			.then((res) => {
 				appDispatch({ type: "SET_PROFILE_GOAL", payload: res.data.goal });
+				dispatch({ type: "SET_INPUT_GOAL", payload: ""});
+
 			})
 			.catch((err) => handleError(err));
 	}
@@ -131,10 +155,12 @@ function EditProfile() {
 					name={"add-interest"}
 					id={"add-interest"}
 					className={style["form__input-text"]}
+					value ={state.input_skill}
 					onChange={(e) => {
-						dispatch({ type: "SET_SKILL", payload: e.target.value });
+						dispatch({ type: "SET_INPUT_SKILL", payload: e.target.value });
 					}}
 				/>
+				<Autocomplete  dispatch = {dispatch} userInput = {state.input_skill} suggestionType ={"skills"}/>
 				<input
 					type={"button"}
 					name={"add-interest"}
@@ -157,14 +183,19 @@ function EditProfile() {
 					name={"delete-interest"}
 					id={"delete-interest"}
 					className={style["form__select"]}
+					value = {state.selected_skill}
 					onChange={(e) => {
 						handleSelectChange(e, "SET_SELECTED_SKILL");
 					}}
-				>
-					{
-						//map skill options
+				>		
+						{/* first option never changes*/}
+					<option value={'select'}>- select -</option>
 
-						skills.map((skill) => {
+					{
+						/* map skill options */
+
+						skills.map((skill, index) => {
+
 							return <option value={skill.id}>{skill.name}</option>;
 						})
 					}
@@ -184,9 +215,10 @@ function EditProfile() {
 				<textarea
 					name={"edit-goal"}
 					id={"edit-goal"}
+					value={state.input_goal}
 					className={style["form__input-textarea"]}
 					onChange={(e) =>
-						dispatch({ type: "SET_GOAL", payload: e.target.value })
+						dispatch({ type: "SET_INPUT_GOAL", payload: e.target.value })
 					}
 				>
 					{goal}
@@ -208,11 +240,14 @@ function EditProfile() {
 					type={"text"}
 					name={"add-language"}
 					id={"add-language"}
+					value ={state.input_language}
 					className={style["form__input-text"]}
 					onChange={(e) => {
-						dispatch({ type: "SET_LANGUAGE", payload: e.target.value });
+						dispatch({ type: "SET_INPUT_LANGUAGE", payload: e.target.value });
 					}}
 				/>
+				<Autocomplete  dispatch = {dispatch} userInput = {state.input_language} suggestionType ={"languages"}/>
+
 				<input
 					type={"button"}
 					name={"add-language"}
@@ -233,12 +268,15 @@ function EditProfile() {
 					name={"delete-language"}
 					id={"delete-language"}
 					className={style["form__select"]}
+					value = {state.selected_language}
 					onChange={(e) => {
 						handleSelectChange(e, "SET_SELECTED_LANGUAGE");
 					}}
 				>
+					<option value={'select'}>- select -</option>
+
 					{
-						//map skill options
+						//map language options
 
 						languages.map((language) => {
 							return <option value={language.id}>{language.name}</option>;
