@@ -59,7 +59,7 @@ function Login() {
 			authServices.saveAuthToken(res.authToken);
 			const decoded = authServices.decodeToken(res.authToken);
 			appDispatch({ type: "SET_USER", payload: decoded });
-			appDispatch({type: "SET_PROFILE_ID", payload:decoded.id})
+			appDispatch({type: "SET_CURRENT_PROFILE_ID", payload:decoded.id})
 			appDispatch({ type: "SET_AUTH", payload: true });
 		} catch (error) {
 			dispatch({
