@@ -1,4 +1,5 @@
 const service = require("./users.service");
+const skillsService = require("../skills/skills.service")
 const asyncErrorBoundary = require("../../errors/asyncErrorBoundary")
 
 async function find(req, res, next) {
@@ -17,9 +18,16 @@ async function find(req, res, next) {
 async function recommend(req, res, next){
 
     const response = await service.recommend(req.params.user_id);
+
     if (response[0]) {
+
+        const recommendationsWithSkills = await Promise.all(response.map(async (user) => {
+            const skills = await skillsService.findByUser(user.id)
+            return {...user, skills}
+        }))
+
         return res.json({ 
-            data: response,
+            data: recommendationsWithSkills,
         });
     }
     next({
