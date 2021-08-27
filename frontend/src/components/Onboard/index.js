@@ -10,7 +10,7 @@ const initialState = {
 	input_goal: "",
 	input_language: "",
 	onboard_stage: 0,
-    transition: false,
+	reqSuccess: false,
 	error: false,
 };
 
@@ -36,6 +36,11 @@ function reducer(state, action) {
 				...state,
 				onboard_stage: action.payload,
 			};
+		case "SET_REQ_SUCCESS":
+			return {
+				...state,
+				reqSuccess: action.payload,
+			};
 		case "SET_ERROR":
 			return {
 				...state,
@@ -59,6 +64,7 @@ function Onboard() {
 			.postSkill(state.input_skill)
 			.then((res) => {
 				dispatch({ type: "SET_INPUT_SKILL", payload: "" });
+				dispatch({ type: "SET_REQ_SUCCESS", payload: true });
 			})
 			.catch((err) => handleError(err));
 	}
@@ -71,6 +77,7 @@ function Onboard() {
 			})
 			.then((res) => {
 				dispatch({ type: "SET_INPUT_GOAL", payload: "" });
+				dispatch({ type: "SET_REQ_SUCCESS", payload: true });
 			})
 			.catch((err) => handleError(err));
 	}
@@ -80,6 +87,7 @@ function Onboard() {
 			.postLanguage(state.input_language)
 			.then((res) => {
 				dispatch({ type: "SET_INPUT_LANGUAGE", payload: "" });
+				dispatch({ type: "SET_REQ_SUCCESS", payload: true });
 			})
 			.catch((err) => handleError(err));
 	}
@@ -92,6 +100,15 @@ function Onboard() {
 						<h1 className={style["title"]}>
 							Looks like you're new here, let's get you started.
 						</h1>
+						{state.reqSuccess && (
+							<span className={style["status"]}>Success!</span>
+						)}
+
+						{state.error && (
+							<span className={`${style["status"]} ${style["error"]}`}>
+								Error: {state.error.message}
+							</span>
+						)}
 
 						{state.onboard_stage === 0 && (
 							<>
@@ -111,6 +128,8 @@ function Onboard() {
 												type: "SET_INPUT_SKILL",
 												payload: e.target.value,
 											});
+											dispatch({ type: "SET_REQ_SUCCESS", payload: false });
+											dispatch({ type: "SET_ERROR", payload: false });
 										}}
 									/>
 									<Autocomplete
@@ -144,12 +163,15 @@ function Onboard() {
 										id={"edit-goal"}
 										value={state.input_goal}
 										className={style["form__input-textarea"]}
-										onChange={(e) =>
+										onChange={(e) => {
 											dispatch({
 												type: "SET_INPUT_GOAL",
 												payload: e.target.value,
-											})
-										}
+											});
+
+											dispatch({ type: "SET_REQ_SUCCESS", payload: false });
+											dispatch({ type: "SET_ERROR", payload: false });
+										}}
 									></textarea>
 									<input
 										type={"button"}
@@ -164,7 +186,6 @@ function Onboard() {
 						{state.onboard_stage === 2 && (
 							<>
 								<form className={style["form"]}>
-                                    
 									<label htmlFor={"add"} className={style["form__label"]}>
 										Do you have any language preferences?
 									</label>
@@ -179,6 +200,8 @@ function Onboard() {
 												type: "SET_INPUT_LANGUAGE",
 												payload: e.target.value,
 											});
+											dispatch({ type: "SET_REQ_SUCCESS", payload: false });
+											dispatch({ type: "SET_ERROR", payload: false });
 										}}
 									/>
 									<Autocomplete
@@ -210,6 +233,8 @@ function Onboard() {
 									type: "SET_ONBOARD_STAGE",
 									payload: state.onboard_stage + 1,
 								});
+								dispatch({ type: "SET_REQ_SUCCESS", payload: false });
+								dispatch({ type: "SET_ERROR", payload: false });
 							}}
 						></input>
 					</div>

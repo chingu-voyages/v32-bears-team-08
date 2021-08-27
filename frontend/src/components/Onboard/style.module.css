@@ -8,7 +8,7 @@
     flex-wrap: nowrap;
     width: 50%;
     align-items: flex-start;
-    row-gap: 5rem;
+    row-gap: 2rem;
 }
 
 .form{
@@ -86,4 +86,18 @@
     align-self: flex-end;
 }
 
-/* transition when onboard_stage changes */
+.status{
+
+    display: flex;
+	align-items: center;
+	font-size: var(--font-size-extra-small);
+	background-color:#03be2ca2;
+	height: 2rem;
+	padding: 1rem;
+	line-height: var(--text-line-height);
+    align-self: center;
+}
+
+.error{
+    background-color: var(--color-bg-pink);
+}
