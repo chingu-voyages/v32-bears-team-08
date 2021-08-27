@@ -18,6 +18,7 @@ function Dashboard(props) {
           initials: user.name.toUpperCase().substring(0, 2),
           skilltags: user.skills.map((skill) => skill.name),
           key: user.name,
+          id: user.id,
         }))
       );
     })();
