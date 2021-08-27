@@ -4,6 +4,7 @@ import authServices from "./services/auth";
 import Landing from "./components/Landing";
 import Dashboard from "./components/Dashboard";
 import Profile from "./components/Profile";
+import Onboard from "./components/Onboard";
 import "./App.css";
 import useRefreshTokenApi from "./hooks/useRefreshTokenApi";
 
@@ -82,6 +83,8 @@ function App() {
 				<Route exact={true} path="/" component={Landing}></Route>
 				<Route path="/dashboard" component={Dashboard}></Route>
 				<Route path="/profile" component={Profile}></Route>
+				<Route path="/onboard" component={Onboard}></Route>
+
 			</userContext.Provider>
 		</BrowserRouter>
 	);
