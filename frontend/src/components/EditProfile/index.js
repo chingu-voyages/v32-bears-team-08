@@ -14,7 +14,7 @@ const initialState = {
 
 function reducer(state, action) {
 	switch (action.type) {
-		case "SET_SKILL":
+		case "SET_INPUT_SKILL":
 			return {
 				...state,
 				input_skill: action.payload,
@@ -22,12 +22,12 @@ function reducer(state, action) {
 		case "SET_SELECTED_SKILL":
 			return { ...state, selected_skill: action.payload };
 
-		case "SET_GOAL":
+		case "SET_INPUT_GOAL":
 			return {
 				...state,
 				input_goal: action.payload,
 			};
-		case "SET_LANGUAGE":
+		case "SET_INPUT_LANGUAGE":
 			return {
 				...state,
 				input_language: action.payload,
@@ -66,7 +66,7 @@ function EditProfile() {
 					type: "SET_PROFILE_SKILLS",
 					payload: skills.concat(res.data),
 				})
-				dispatch({ type: "SET_SKILL", payload: ""});
+				dispatch({ type: "SET_INPUT_SKILL", payload: ""});
 				})
 			.catch((err) => handleError(err));
 	}
@@ -79,7 +79,7 @@ function EditProfile() {
 					type: "SET_PROFILE_LANGUAGES",
 					payload: languages.concat(res.data),
 				});
-				dispatch({ type: "SET_LANGUAGE", payload: ""});
+				dispatch({ type: "SET_INPUT_LANGUAGE", payload: ""});
 
 				
 			})
@@ -100,12 +100,13 @@ function EditProfile() {
 				
 			}).then(filteredLanguages=>{
 				
-				dispatch({ type: "SET_SELECTED_LANGUAGE", payload: "select"});
 			
 				appDispatch({
 					type: "SET_PROFILE_LANGUAGES",
 					payload: filteredLanguages,
 				});
+				dispatch({ type: "SET_SELECTED_LANGUAGE", payload: "select"});
+
 			})
 			.catch((err) => handleError(err));
 	}
@@ -122,8 +123,8 @@ function EditProfile() {
 				return filteredSkills
 				
 			}).then(filteredSkills=>{
-				dispatch({ type: "SET_SELECTED_SKILL", payload: "select"});
 				appDispatch({ type: "SET_PROFILE_SKILLS", payload: filteredSkills });
+				dispatch({ type: "SET_SELECTED_SKILL", payload: "select"});
 			})
 			.catch((err) => handleError(err));
 	}
@@ -136,7 +137,7 @@ function EditProfile() {
 			})
 			.then((res) => {
 				appDispatch({ type: "SET_PROFILE_GOAL", payload: res.data.goal });
-				dispatch({ type: "SET_GOAL", payload: ""});
+				dispatch({ type: "SET_INPUT_GOAL", payload: ""});
 
 			})
 			.catch((err) => handleError(err));
@@ -156,7 +157,7 @@ function EditProfile() {
 					className={style["form__input-text"]}
 					value ={state.input_skill}
 					onChange={(e) => {
-						dispatch({ type: "SET_SKILL", payload: e.target.value });
+						dispatch({ type: "SET_INPUT_SKILL", payload: e.target.value });
 					}}
 				/>
 				<Autocomplete  dispatch = {dispatch} userInput = {state.input_skill} suggestionType ={"skills"}/>
@@ -182,6 +183,7 @@ function EditProfile() {
 					name={"delete-interest"}
 					id={"delete-interest"}
 					className={style["form__select"]}
+					value = {state.selected_skill}
 					onChange={(e) => {
 						handleSelectChange(e, "SET_SELECTED_SKILL");
 					}}
@@ -216,7 +218,7 @@ function EditProfile() {
 					value={state.input_goal}
 					className={style["form__input-textarea"]}
 					onChange={(e) =>
-						dispatch({ type: "SET_GOAL", payload: e.target.value })
+						dispatch({ type: "SET_INPUT_GOAL", payload: e.target.value })
 					}
 				>
 					{goal}
@@ -241,7 +243,7 @@ function EditProfile() {
 					value ={state.input_language}
 					className={style["form__input-text"]}
 					onChange={(e) => {
-						dispatch({ type: "SET_LANGUAGE", payload: e.target.value });
+						dispatch({ type: "SET_INPUT_LANGUAGE", payload: e.target.value });
 					}}
 				/>
 				<Autocomplete  dispatch = {dispatch} userInput = {state.input_language} suggestionType ={"languages"}/>
@@ -266,6 +268,7 @@ function EditProfile() {
 					name={"delete-language"}
 					id={"delete-language"}
 					className={style["form__select"]}
+					value = {state.selected_language}
 					onChange={(e) => {
 						handleSelectChange(e, "SET_SELECTED_LANGUAGE");
 					}}
@@ -273,7 +276,7 @@ function EditProfile() {
 					<option value={'select'}>- select -</option>
 
 					{
-						//map skill options
+						//map language options
 
 						languages.map((language) => {
 							return <option value={language.id}>{language.name}</option>;

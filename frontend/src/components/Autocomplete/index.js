@@ -10,14 +10,14 @@ function Autocomplete(props) {
     const actionType = useMemo(()=>{
         switch(suggestionType){
             case "skills":
-                return 'SET_SKILL'
+                return 'SET_INPUT_SKILL'
             case "languages":
-                return 'SET_LANGUAGE'
+                return 'SET_INPUT_LANGUAGE'
         }
     }, [suggestionType])
 
 
-
+    /* filter selections each time user input changes */
     useEffect(()=>{
 
         setFilteredSuggestions(() => {
