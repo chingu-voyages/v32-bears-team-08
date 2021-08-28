@@ -101,3 +101,15 @@
 .error{
     background-color: var(--color-bg-pink);
 }
+
+
+/* responsive styling for smaller devices (width < 768px)*/
+
+
+@media (max-width: 768px) {
+    .stage{
+        width: auto;
+        padding: 2rem;
+    }
+
+    }
