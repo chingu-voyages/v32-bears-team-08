@@ -78,3 +78,13 @@
         
       
 }
+
+
+/* responsive styling for smaller devices (width < 768px)*/
+
+
+@media (max-width: 768px) {
+    .title{
+        font-size: var(--font-size-header);
+    }
+}
