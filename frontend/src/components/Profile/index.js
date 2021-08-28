@@ -55,7 +55,7 @@ function Profile() {
 
 			<div className={style["edit-profile"]}>
 				{/* handle Click */}
-				{(appState.user.id === appState.currentProfileId) && < button className={style["edit-profile__buttom"]} onClick ={()=>setEdit(prev=>!prev)}>Edit Profile</button>}
+				{(appState.user.id === appState.currentProfileId) && < button className={style["edit-profile__button"]} onClick ={()=>setEdit(prev=>!prev)}>Edit Profile</button>}
 			</div>
 		</div>}
             {(edit && (appState.user.id === appState.currentProfileId) ) &&   <EditProfile/>}
