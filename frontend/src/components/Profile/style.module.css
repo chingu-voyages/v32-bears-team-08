@@ -73,12 +73,12 @@
     text-decoration: none;
     color: white;
     font-size: var(--font-size-small);
-    width:  88%;
     height: 4rem;
     display: flex;
     align-items: center;
     justify-content: center;
     box-shadow: none;
+    flex: 0 1 50%;
 }
 
 
