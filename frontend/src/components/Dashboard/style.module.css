@@ -1,16 +1,9 @@
 .dashboard {
-  display: flex;
-  justify-content: space-around;
+  max-width: 15em;
 }
 
-.dashboard-left {
-}
-
-.dashboard-right {
-  display: flex;
-  justify-content: space-around;
-}
-
-.dashboard-right > div {
-  padding: 2em;
+.message {
+  font-size: large;
+  margin-top: 4em;
+  text-align: center;
 }

@@ -51,3 +51,20 @@
   align-items: center;
   margin-left: 1em;
 }
+
+.logout-button {
+  cursor: pointer;
+  background-color: var(--color-bg-button);
+  border: 0;
+  line-height: var(--button-line-height);
+  text-decoration: none;
+  color: white;
+  font-size: 1em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: none;
+  display: inline-block;
+  color: var(--color-bg-input);
+  margin-left: 0.3em;
+}
