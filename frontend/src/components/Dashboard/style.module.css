@@ -1,9 +1,17 @@
 .dashboard {
   max-width: 15em;
+  min-width: 600px;
+  margin: auto;
 }
 
 .message {
   font-size: large;
   margin-top: 4em;
   text-align: center;
+}
+
+@media screen and (max-width: 650px) {
+  .dashboard {
+    min-width: 400px;
+  }
 }
