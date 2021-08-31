@@ -1,10 +1,12 @@
 import React, { useReducer } from "react";
+import sendEmail from "../../services/send-email";
 import styles from "./style.module.css";
 
 const initialState = {
   subject: "",
   message: "",
   sent: false,
+  error: "",
 };
 
 function reducer(state, action) {
@@ -24,6 +26,11 @@ function reducer(state, action) {
         ...state,
         sent: true,
       };
+    case "SET_ERROR":
+      return {
+        ...state,
+        error: action.payload,
+      };
     default:
       return { ...state };
   }
@@ -35,13 +42,23 @@ function EmailForm() {
   async function handleSubmit(e) {
     e.preventDefault();
 
-    const data = {
+    const info = {
       subject: state.subject,
       message: state.message,
     };
-    console.log(data);
+    console.log(info);
 
-    dispatch({ type: "SET_SENT", payload: false });
+    sendEmail
+      .postEmail(info)
+      .then((res) => {
+        dispatch({ type: "SET_SENT", payload: true });
+      })
+      .catch((err) => {
+        dispatch({
+          type: "SET_ERROR",
+          payload: err.message,
+        });
+      });
   }
 
   return (
