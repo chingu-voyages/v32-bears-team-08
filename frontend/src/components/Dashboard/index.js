@@ -25,6 +25,9 @@ function Dashboard(props) {
 
   return (
     <div className={`container ${styles["dashboard"]}`}>
+      <div className = {styles["title-container"]}>
+        <h2 className = {styles["title"]}>Recommended learning partners, curated just for you.</h2>
+      </div>
       <div className={styles["dashboard-left"]}>
         {recommendedUsers.map((user) => (
           <Userinfo {...user} />
