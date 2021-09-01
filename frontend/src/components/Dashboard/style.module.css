@@ -33,14 +33,11 @@
 
 @media (max-width: 768px) {
   .dashboard {
-    width: 100%;
+    width: 90%;
     justify-content: flex-start;
-    max-width: auto;
-    min-width: auto;
   }
 
   .title{
-    text-align: left;
     word-wrap: break-word;
 
   }
