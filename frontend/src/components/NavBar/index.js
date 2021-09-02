@@ -6,7 +6,7 @@ import { useLocation } from "react-router-dom";
 
 function NavBar() {
   const location = useLocation();
-  const { appState } = useContext(userContext);
+  const { appState, appDispatch } = useContext(userContext);
   let name = appState.user ? appState.user.sub : null;
   name = name === null && appState.user ? appState.user.sub : name;
   const initials = name ? name.toUpperCase().substring(0, 2) : null;
@@ -30,7 +30,17 @@ function NavBar() {
           <Link to="/dashboard">Dashboard</Link>
         </div>
         <div>
-          <Link to="/profile">Profile</Link>
+          <Link
+            onClick={(e) => {
+              appDispatch({
+                type: "SET_CURRENT_PROFILE_ID",
+                payload: appState.user.id,
+              });
+            }}
+            to="/profile"
+          >
+            Profile
+          </Link>
         </div>
       </nav>
     </div>
