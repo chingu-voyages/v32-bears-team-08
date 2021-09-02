@@ -9,28 +9,38 @@ function Dashboard(props) {
   const [recommendedUsers, setRecommendedUsers] = useState([]);
   const { appState } = useContext(userContext);
   const id = appState.user ? appState.user.id : null;
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    (async () => {
-      const users = await getRecommendedUsers(id);
-      setRecommendedUsers(
-        users.data.map((user) => ({
-          initials: user.name.toUpperCase().substring(0, 2),
-          skilltags: user.skills.map((skill) => skill.name),
-          key: user.name,
-        }))
-      );
-    })();
+    getRecommendedUsers(id)
+      .then((users) => {
+        setRecommendedUsers(
+          users.data.map((user) => ({
+            initials: user.name.toUpperCase().substring(0, 2),
+            skilltags: user.skills.map((skill) => skill.name),
+            key: user.name,
+          }))
+        );
+        setLoading(false);
+      })
+      .catch((err) => {
+        setRecommendedUsers([]);
+        setLoading(false);
+      });
   }, [id]);
 
   return (
     <div className={`container ${styles["dashboard"]}`}>
-      <div className={styles["dashboard-left"]}>
-        {recommendedUsers.map((user) => (
-          <Userinfo {...user} />
-        ))}
-      </div>
-      <div className={styles["dashboard-right"]}></div>
+      {recommendedUsers.length === 0 && (
+        <h2 className={styles["message"]}>
+          {loading
+            ? "Loading..."
+            : "Oops, no one seems to have the same interests. Try to add more in your profile."}
+        </h2>
+      )}
+      {recommendedUsers.map((user) => (
+        <Userinfo {...user} />
+      ))}
     </div>
   );
 }
