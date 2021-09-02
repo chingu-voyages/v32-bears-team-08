@@ -1,9 +1,9 @@
-import React, { useReducer } from "react";
+import React, { useReducer, useContext } from "react";
+import { userContext } from "../../App";
 import sendEmail from "../../services/send-email";
 import styles from "./style.module.css";
 
 const initialState = {
-  subject: "",
   message: "",
   sent: false,
   error: "",
@@ -11,11 +11,6 @@ const initialState = {
 
 function reducer(state, action) {
   switch (action.type) {
-    case "SET_SUBJECT":
-      return {
-        ...state,
-        subject: action.payload,
-      };
     case "SET_MESSAGE":
       return {
         ...state,
@@ -38,20 +33,26 @@ function reducer(state, action) {
 
 function EmailForm() {
   const [state, dispatch] = useReducer(reducer, initialState);
+  const { appState } = useContext(userContext);
+  const sent = initialState.sent;
 
   async function handleSubmit(e) {
     e.preventDefault();
 
-    const info = {
-      subject: state.subject,
-      message: state.message,
+    const data = {
+      text: state.message,
+      sender: appState.user.id,
+      recipient: appState.currentProfileId,
     };
-    console.log(info);
+    console.log("sending: ");
+    console.log(data);
 
     sendEmail
-      .postEmail(info)
+      .postEmail(data)
       .then((res) => {
         dispatch({ type: "SET_SENT", payload: true });
+        dispatch({ type: "SET_MESSAGE", payload: "" });
+        e.target.message.value = "";
       })
       .catch((err) => {
         dispatch({
@@ -77,11 +78,8 @@ function EmailForm() {
           id={"subject"}
           name={"subject"}
           placeholder={"Subject"}
-          value={state.subject}
+          value={"Hi from Learn Together!"}
           className={styles["email__form__input"]}
-          onChange={(e) => {
-            dispatch({ type: "SET_SUBJECT", payload: e.target.value });
-          }}
         ></input>
 
         <label htmlFor="message" className={styles["email__form__label"]}>
@@ -103,6 +101,7 @@ function EmailForm() {
         <button className={styles["email__form__button"]} type="submit">
           Send
         </button>
+        {sent && <p className={styles["email__form__label"]}>Sent!</p>}
       </form>
     </div>
   );
