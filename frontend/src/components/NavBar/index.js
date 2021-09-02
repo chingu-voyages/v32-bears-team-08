@@ -8,7 +8,7 @@ import { clearAuthToken } from "../../services/auth";
 function NavBar() {
   const location = useLocation();
   const { appState, appDispatch } = useContext(userContext);
-  let name = appState.profile ? appState.profile.name : null;
+  let name = appState.user ? appState.user.sub : null;
   name = name === null && appState.user ? appState.user.sub : name;
   const initials = name ? name.toUpperCase().substring(0, 2) : null;
   let history = useHistory();
@@ -45,7 +45,17 @@ function NavBar() {
           <Link to="/dashboard">Dashboard</Link>
         </div>
         <div>
-          <Link to="/profile">Profile</Link>
+          <Link
+            onClick={(e) => {
+              appDispatch({
+                type: "SET_CURRENT_PROFILE_ID",
+                payload: appState.user.id,
+              });
+            }}
+            to="/profile"
+          >
+            Profile
+          </Link>
         </div>
       </nav>
     </div>
