@@ -9,13 +9,10 @@
 } */
 
 
-.dashboard-right {
-  display: flex;
-  justify-content: space-around;
-}
-
-.dashboard-right > div {
-  padding: 2em;
+.message {
+  font-size: large;
+  margin-top: 4em;
+  text-align: center;
 }
 
 
@@ -33,7 +30,7 @@
 
 @media (max-width: 768px) {
   .dashboard {
-    width: 90%;
+  
     justify-content: flex-start;
   }
 
