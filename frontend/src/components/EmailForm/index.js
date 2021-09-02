@@ -79,6 +79,7 @@ function EmailForm() {
           name={"subject"}
           placeholder={"Subject"}
           value={"Hi from Learn Together!"}
+          readOnly
           className={styles["email__form__input"]}
         ></input>
 
