@@ -5,7 +5,7 @@ import styles from "./style.module.css";
 
 const initialState = {
   message: "",
-  sent: false,
+  reqSuccess: false,
   error: "",
 };
 
@@ -16,15 +16,15 @@ function reducer(state, action) {
         ...state,
         message: action.payload,
       };
-    case "SET_SENT":
-      return {
-        ...state,
-        sent: true,
-      };
     case "SET_ERROR":
       return {
         ...state,
         error: action.payload,
+      };
+    case "SET_REQ_SUCCESS":
+      return {
+        ...state,
+        reqSuccess: action.payload,
       };
     default:
       return { ...state };
@@ -44,13 +44,11 @@ function EmailForm() {
       sender: appState.user.id,
       recipient: appState.currentProfileId,
     };
-    console.log("sending: ");
-    console.log(data);
 
     sendEmail
       .postEmail(data)
       .then((res) => {
-        dispatch({ type: "SET_SENT", payload: true });
+        dispatch({ type: "SET_REQ_SUCCESS", payload: true });
         dispatch({ type: "SET_MESSAGE", payload: "" });
         e.target.message.value = "";
       })
@@ -102,7 +100,7 @@ function EmailForm() {
         <button className={styles["email__form__button"]} type="submit">
           Send
         </button>
-        {sent && <p className={styles["email__form__label"]}>Sent!</p>}
+        {state.reqSuccess && <span className={styles["status"]}>Sent!</span>}
       </form>
     </div>
   );
