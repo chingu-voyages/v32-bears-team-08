@@ -17,14 +17,9 @@ async function find(req, res, next) {
 
 async function recommend(req, res, next){
 
-    const recommendations = await service.recommend(req.params.user_id);
+    const response = await service.recommend(req.params.user_id);
 
-    if (recommendations[0]) {
-
-        const response = await Promise.all(recommendations.map(async (user) => {
-            const skills = await skillsService.findByUser(user.id)
-            return {...user, skills}
-        }))
+    if (response[0]) {
 
         return res.json({ 
             data: response,
