@@ -34,7 +34,6 @@ function reducer(state, action) {
 function EmailForm() {
   const [state, dispatch] = useReducer(reducer, initialState);
   const { appState } = useContext(userContext);
-  const sent = initialState.sent;
 
   async function handleSubmit(e) {
     e.preventDefault();

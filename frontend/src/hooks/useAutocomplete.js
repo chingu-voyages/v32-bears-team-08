@@ -22,7 +22,7 @@ function useAutocomplete(suggestionType) {
 		}
 
 		fetchData();
-	}, []);
+	}, [suggestionType]);
 
 	return [allSuggestions, loading, error];
 }

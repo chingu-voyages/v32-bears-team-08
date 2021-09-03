@@ -224,7 +224,7 @@ function Onboard() {
 							type="button"
 							className={`${style["form__button"]} ${style["nav__button"]}`}
 							value={
-								state.onboard_stage === 0 || state.onboard_stage == 1
+								state.onboard_stage === 0 || state.onboard_stage === 1
 									? "Next"
 									: "Go to Dashboard"
 							}

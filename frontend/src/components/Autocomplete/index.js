@@ -5,7 +5,7 @@ import style from "./style.module.css"
 
 function Autocomplete(props) {
     const { dispatch, userInput, suggestionType } = props;
-    const [allSuggestions, loading, error] = useAutocomplete(suggestionType)
+    const [allSuggestions] = useAutocomplete(suggestionType)
     const [ filteredSuggestions, setFilteredSuggestions ] = useState([]);
     const actionType = useMemo(()=>{
         switch(suggestionType){
@@ -13,6 +13,8 @@ function Autocomplete(props) {
                 return 'SET_INPUT_SKILL'
             case "languages":
                 return 'SET_INPUT_LANGUAGE'
+            default :
+                return ""
         }
     }, [suggestionType])
 
