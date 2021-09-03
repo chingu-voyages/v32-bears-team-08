@@ -1,0 +1,35 @@
+.userinfo {
+  display: flex;
+  flex-direction: row;
+  margin-top: 1.5em;
+  align-items: center;
+}
+
+.initials {
+  cursor: pointer;
+  border-radius: 50%;
+  min-width: 3em;
+  min-height: 3em;
+  max-height: 3em;
+  color: var(--color-primary);
+  font-size: large;
+  background-color: var(--color-bg-input);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.skills {
+  display: flex;
+  align-items: center;
+  margin: 1em;
+  flex-wrap: wrap;
+}
+
+.skill {
+  background-color: var(--color-bg-input);
+  color: var(--color-secondary);
+  margin: 0.2em;
+  padding: 0.4em;
+  font-size: 1.5em;
+}

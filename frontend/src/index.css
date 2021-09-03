@@ -1,0 +1,39 @@
+@font-face {
+  font-family: 'IBM Plex';
+  src: url('./fonts/IBMPlexSansArabic-Regular.ttf');
+}
+
+:root {
+  font-size: 10px;
+  height: 100%;
+  --font-size-extra-small: 1.4rem;
+  --font-size-small: 1.6rem;
+  --font-size-medium: 1.8rem;
+  --font-size-header: 2.8rem;
+  --font-size-header-large: 4.8rem;
+  --line-height-button: 1.25;
+  --line-height-text: 2rem;
+  --color-primary: black;
+  --color-secondary: #ff00e5;
+  --color-bg: #fff;
+  --color-bg-button: #6a6a6a;
+  --color-bg-input: #ececec;
+  --color-bg-pink: rgb(254, 222, 227);
+  --color-bg-landing: #fff6ff;
+  --color-outline-input: #8a2be2;
+}
+
+body,
+#root {
+  margin: 0;
+  font-family: "IBM Plex";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  height: 100%;
+  margin: auto;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}

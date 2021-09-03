@@ -1,0 +1,33 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "backend directory of Chingu Voyage 32 Team 08 Bears project",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon src/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chingu-voyages/v32-bears-team-08.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/chingu-voyages/v32-bears-team-08/issues"
+  },
+  "homepage": "https://github.com/chingu-voyages/v32-bears-team-08#readme",
+  "devDependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "knex": "^0.95.8",
+    "nodemon": "^2.0.12",
+    "pg": "^8.7.1"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "nodemailer": "^6.4.18",
+    "xss": "^1.0.9"
+  }
+}

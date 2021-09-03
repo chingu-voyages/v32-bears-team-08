@@ -1,0 +1,44 @@
+.dashboard {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  padding: 1rem;
+}
+
+/* .dashboard-left {
+} */
+
+
+.message {
+  font-size: large;
+  margin-top: 4em;
+  text-align: center;
+}
+
+
+.title-container{
+  flex: 1 0 100%;
+}
+
+.title{
+  text-align: center;
+  font-size: 2rem;
+}
+
+
+/* responsive styling for smaller devices (width < 768px)*/
+
+
+@media (max-width: 768px) {
+  .dashboard {
+  
+    justify-content: flex-start;
+  }
+
+  .title{
+    word-wrap: break-word;
+    font-size: 1.4rem;
+
+  }
+
+}
