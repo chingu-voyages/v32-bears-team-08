@@ -32,6 +32,9 @@ function Dashboard(props) {
 
   return (
     <div className={`container ${styles["dashboard"]}`}>
+        <div className = {styles["title-container"]}>
+        <h2 className = {styles["title"]}>Recommended learning partners</h2>
+      </div>
       {recommendedUsers.length === 0 && (
         <h2 className={styles["message"]}>
           {loading
@@ -39,9 +42,12 @@ function Dashboard(props) {
             : "Oops, no one seems to have the same interests. Try to add more in your profile."}
         </h2>
       )}
-      {recommendedUsers.map((user) => (
+      <div>     
+        {recommendedUsers.map((user) => (
         <Userinfo {...user} />
       ))}
+      </div>
+ 
     </div>
   );
 }

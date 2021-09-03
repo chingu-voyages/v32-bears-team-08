@@ -1,8 +1,13 @@
 .dashboard {
-  max-width: 15em;
-  min-width: 600px;
-  margin: auto;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  padding: 1rem;
 }
+
+/* .dashboard-left {
+} */
+
 
 .message {
   font-size: large;
@@ -10,8 +15,30 @@
   text-align: center;
 }
 
-@media screen and (max-width: 650px) {
+
+.title-container{
+  flex: 1 0 100%;
+}
+
+.title{
+  text-align: center;
+  font-size: 2rem;
+}
+
+
+/* responsive styling for smaller devices (width < 768px)*/
+
+
+@media (max-width: 768px) {
   .dashboard {
-    min-width: 400px;
+  
+    justify-content: flex-start;
   }
+
+  .title{
+    word-wrap: break-word;
+    font-size: 1.4rem;
+
+  }
+
 }

@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { userContext } from "../../App";
 import styles from "./style.module.css";
 import { Link } from "react-router-dom";
@@ -8,8 +8,9 @@ import { clearAuthToken } from "../../services/auth";
 function NavBar() {
   const location = useLocation();
   const { appState, appDispatch } = useContext(userContext);
-  let name = appState.user ? appState.user.sub : null;
-  name = name === null && appState.user ? appState.user.sub : name;
+  const [open, setOpen] = useState(false)
+  let name = appState.user ? appState.user.name : null;
+  name = name === null && appState.user ? appState.user.name : name;
   const initials = name ? name.toUpperCase().substring(0, 2) : null;
   let history = useHistory();
 
@@ -29,14 +30,19 @@ function NavBar() {
           <h1>Learn Together App</h1>
         </div>
         <div className={styles["navbar-right"]}>
-          <div className={styles["username"]}>
+          <div className={styles["username"]} onClick = {()=>{setOpen(prev=>!prev)}}>
             {" "}
             Welcome, {name}{" "}
-            <button onClick={handleLogout} className={styles["logout-button"]}>
-              Logout
-            </button>
+
           </div>
-          <div className={styles["initials"]}>{initials}</div>
+          <div className = {styles['menu-container']}>
+          <div className={styles["initials"]}  onClick = {()=>{setOpen(prev=>!prev)}}>{initials}</div>
+          <div className = {open? `${styles['menu-open']}`: styles['menu-closed']}>
+            <button onClick={handleLogout} className={styles["logout-button"]}>
+              log out
+            </button>
+            </div>
+            </div>
         </div>
       </div>
 

@@ -1,5 +1,5 @@
 .email {
-  width: 100%;
+  flex: 0 1 40%;
   height: 100%;
   display: flex;
   justify-content: center;
@@ -39,11 +39,19 @@
   font-size: var(--font-size-extra-small);
 }
 
+.email__form__input{
+  outline: .2rem solid var(--color-outline-input);
+}
+
 .email__form__textarea {
   width: 80%;
   background: var(--color-bg-input);
   border: none;
   font-size: var(--font-size-extra-small);
+}
+
+.email__form__textarea:focus{
+  outline: .2rem solid var(--color-outline-input);
 }
 
 .email__form__button {

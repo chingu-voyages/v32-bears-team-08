@@ -57,7 +57,7 @@ function Profile() {
             {/* handle Click */}
             {appState.user.id === appState.currentProfileId && (
               <button
-                className={style["edit-profile__buttom"]}
+                className={style["edit-profile__button"]}
                 onClick={() => setEdit((prev) => !prev)}
               >
                 Edit Profile
@@ -65,7 +65,7 @@ function Profile() {
             )}
             {!(appState.user.id === appState.currentProfileId) ? (
               <button
-                className={style["edit-profile__buttom"]}
+                className={style["edit-profile__button"]}
                 onClick={() => setEmail((prev) => !prev)}
               >
                 Send Email
