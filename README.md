@@ -28,19 +28,19 @@
 ## Screenshots
 
 - Landing
-![Landing](assets/landing.png)
+![Landing](assets/landing.PNG)
 
 - Dashboard
-![Dashboard](assets/learning-partners.png)
+![Dashboard](assets/learning-partners.PNG)
 
 - Profile
-![Profile](assets/profile.png)
+![Profile](assets/profile.PNG)
 
 - Edit Profile
-![Edit Profile](assets/edit-profile.png)
+![Edit Profile](assets/edit-profile.PNG)
 
 - Send Email
-![Send Email](assets/email.png)
+![Send Email](assets/email.PNG)
 ---
 
 ## Installation
