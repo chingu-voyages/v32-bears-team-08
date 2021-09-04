@@ -79,3 +79,14 @@
   padding: 1rem;
   line-height: var(--text-line-height);
 }
+
+.status{
+  display: flex;
+	align-items: center;
+	font-size: var(--font-size-extra-small);
+	background-color:#03be2ca2;
+	height: 2rem;
+	padding: 1rem;
+	line-height: var(--text-line-height);
+    align-self: center;
+}
