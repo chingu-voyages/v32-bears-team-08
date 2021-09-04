@@ -42,7 +42,20 @@ app.use("/users-languages", usersLanguagesRouter)
 app.use("/users-timeslots", usersTimeslotsRouter)
 app.use("/users-resources", usersResourcesRouter)
 
+//Serve Static Assets in production
+//set static folder
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.join(__dirname, '../../frontend/build')))
+  
+  app.get('/*', (req, res) => {
+      res.sendFile(path.resolve('../frontend', 'build', 'index.html'));
+    });
+  }
+
 app.use(notFound);
 app.use(errorHandler);
+
+
+
 
 module.exports = app;
