@@ -3,5 +3,9 @@
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "knex": "^0.95.8"
+  },
+  "scripts":{
+    "start": "cd backend && npm i && npm run start" ,
+    "heroku-postbuild": "cd frontend && npm i && npm run build"
   }
 }
