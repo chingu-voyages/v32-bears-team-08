@@ -23,7 +23,7 @@
 > Learn together connects self-learners and autodidacts who share similar interests. After creating their profile, users receive a curated list of recommended learning partners whom they can contact using the in-app email feature. 
 
 ## Demo
->
+> [Live App](https://learn-together-v32.herokuapp.com/)
 
 ## Screenshots
 
